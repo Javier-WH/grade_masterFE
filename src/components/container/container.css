@@ -1,0 +1,14 @@
+.Container{
+  background-color: var(--surface-border);
+  border-radius: 1em;
+  padding: 1.5em;
+  box-sizing: border-box;
+  position: relative;
+}
+.Container-title{
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: -1.5em;
+  color: var(--text-color-secondary);
+}

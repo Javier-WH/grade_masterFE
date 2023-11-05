@@ -1,0 +1,29 @@
+.login-container{
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+
+}
+.passRecovery-text{
+  font-size: 0.7em;
+  cursor: pointer;
+}
+.passRecovery-text:hover{
+  font-size: 0.7em;
+  color: var(--primary-color)
+}
+
+
+#passRecovery-container{
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color-secondary);
+
+}
+
