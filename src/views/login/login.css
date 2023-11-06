@@ -9,6 +9,7 @@
   align-items: stretch;
   justify-content: stretch;
 
+
 }
 .passRecovery-text{
   font-size: 0.7em;
@@ -23,7 +24,17 @@
 #passRecovery-container{
   display: flex;
   justify-content: space-between;
-  color: var(--text-color-secondary);
+  color: var();
 
 }
 
+#loginLogo{
+  width: 100%;
+  height: 7em;
+  margin-bottom: .5em;
+}
+
+#loginLogo path {
+  fill: var(--surface-b);
+  filter: drop-shadow(0 0 1em  var(--primary-color)) drop-shadow(0 0 1em  var(--primary-color));
+}

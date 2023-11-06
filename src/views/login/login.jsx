@@ -5,6 +5,7 @@ import BasicPassword from '../../components/inputs/passwordInput.jsx'
 import { Button } from 'primereact/button';
 import {useNavigate} from 'react-router-dom';
 import { GlobalContext } from '../../context/globalContext.jsx';
+import Logo from '../logo/logo.jsx';
 import './login.css'
 
 export default function Login(){
@@ -15,12 +16,13 @@ export default function Login(){
   const [userValue, setUserValue] = useState("")
 
   const handleLogin = ()=>{
-     navigate("/hola")
+    navigate("/hola")
     setToast({severity: 'success', summary: 'exito', detail: 'detalles'})
   }
 
   return (
-    <Container title = 'Login'>
+    <>
+    <Logo/>
       <div className='login-container'>
         <UserInput userValue= {userValue} setUserValue={setUserValue}/>
         <BasicPassword passValue ={passValue} setPassValue={setPassValue}/>
@@ -30,7 +32,7 @@ export default function Login(){
           <span className ='passRecovery-text'>Registrarse</span>
         </div>
       </div>
-    </Container>
+    </>
   )
 
 }

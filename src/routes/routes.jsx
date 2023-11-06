@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom"
 import Login from '../views/login/login.jsx'
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Logo from "../views/logo/logo.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -18,17 +19,3 @@ const router = createBrowserRouter([
 
 export default router
 
-
-/*
-export default function Router(){
-
-  return(
-     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/hola" element={<h1>Hola!!!!!!</h1>} />
-      </Routes>
-    </BrowserRouter>
-
-  )
-} */
