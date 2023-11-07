@@ -1,5 +1,3 @@
-
-
 export default function Logo(){
   return <svg 
   version="1.0" 
