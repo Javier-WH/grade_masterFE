@@ -1,0 +1,38 @@
+.TP-container{
+  grid-area: container;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.TP-label{
+  color: var(--text-color-secondary) ;
+  text-indent: 1em;
+}
+.p-autocomplete-custom,
+.p-autocomplete-custom > .p-autocomplete-input{
+  width: 100%;
+}
+#TP-menu{
+ grid-area: menu;
+}
+#TP-main-container{
+  min-height: 100vh;
+  min-width: 100vw;
+  display: grid;
+  grid-template-areas: 
+    ".  menu menu  menu ." 
+    ". . container . ."
+    ". . . . .";
+}
+
+@media (width < 960px){
+  #TP-main-container{
+ 
+    grid-template-areas: 
+      "menu menu menu menu menu" 
+      ". container container container ."
+      ". . . . .";
+  }
+
+}

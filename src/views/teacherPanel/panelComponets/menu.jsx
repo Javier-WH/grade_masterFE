@@ -52,11 +52,15 @@ export default function TeacherPanelMenu() {
                     ]
                 },
                 {
-                  separator: true
-                },
-                {
                     label: 'Guardar',
                     icon: 'pi pi-fw pi-save'
+                },
+                {
+                  separator: true
+                },
+                  {
+                    label: 'Salir',
+                    icon: 'pi pi-fw pi-power-off'
                 }
             ]
         },
@@ -83,6 +87,22 @@ export default function TeacherPanelMenu() {
 
             ]
         },
+             {
+            label: 'Estudiantes',
+            icon: 'pi pi-fw pi-users',
+            items: [
+                {
+                    label: 'Nomina',
+                    icon: 'pi pi-fw pi-list',
+
+                },
+                {
+                    label: 'Buscar estudiante',
+                    icon: 'pi pi-fw pi-search',
+
+                }
+            ]
+        },
         {
             label: 'Usuario',
             icon: 'pi pi-fw pi-user',
@@ -99,14 +119,26 @@ export default function TeacherPanelMenu() {
                 }
             ]
         },
-        {
-            label: 'Salir',
-            icon: 'pi pi-fw pi-power-off'
+             {
+            label: 'Ayuda',
+            icon: 'pi pi-fw pi-question-circle',
+            items: [
+                {
+                    label: 'Acerca de...',
+                    icon: 'pi pi-fw pi-info',
+
+                },
+                {
+                    label: 'Preguntas frecuentes',
+                    icon: 'pi pi-fw pi-question',
+
+                }
+            ]
         }
     ];
 
     return (
-        <div className="card">
+        <div className="card" id='TP-menu'>
             <Menubar model={items} />
         </div>
     )

@@ -36,15 +36,16 @@ export default function NewPasswordInput({passValue, setPassValue}) {
     return (
            <span className="p-float-label p-input-icon-left">
             <Password 
-            id="login-password" 
-            value={passValue} 
-            onChange={onChangeHandler} 
-            footer={footer} 
-            promptLabel="Ingresa una contraseña" 
-            weakLabel="Muy débil" 
-            mediumLabel="Promedio" 
-            strongLabel="Contraseña fuerte"
-            toggleMask/>
+                id="login-password" 
+                value={passValue} 
+                onChange={onChangeHandler} 
+                footer={footer} 
+                promptLabel="Ingresa una contraseña" 
+                weakLabel="Muy débil" 
+                mediumLabel="Promedio" 
+                strongLabel="Contraseña fuerte"
+                toggleMask
+            />
             <label htmlFor="login-password">Contraseña</label>
            </span>
     )
