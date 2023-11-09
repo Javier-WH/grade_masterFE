@@ -1,0 +1,17 @@
+#NFP-code{
+  text-align: center;
+  font-size: 4em;
+    color:  var(--primary-color);
+}
+
+#NFP-title{
+  text-align: center;
+  font-size: 1em;
+  color: var(--text-color-secondary);
+}
+
+#NFP-image{
+  width: 15em;
+  height: auto;
+}
+
