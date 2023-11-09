@@ -17,7 +17,7 @@ export default function AutoCompleteInput() {
             onChange={(e) => setValue(e.value)}
             className="p-autocomplete-custom" 
             id="p-autocomplete-custom"
-            />
+        />
     )
 }
         

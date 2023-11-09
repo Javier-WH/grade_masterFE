@@ -10,5 +10,18 @@
   margin: 0;
   position: absolute;
   top: -1.5em;
+  font-size: 1em;
   color: var(--text-color-secondary);
+}
+
+
+@media (width < 400px){
+  .Container-title{
+    font-size: .8em;
+  }
+}
+@media (width < 320px){
+  .Container-title{
+    font-size: .6em;
+  }
 }
