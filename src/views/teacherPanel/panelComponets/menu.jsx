@@ -1,6 +1,10 @@
 import { Menubar } from 'primereact/menubar';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function TeacherPanelMenu() {
+    const navigate = useNavigate()
+
     const items = [
         {
             label: 'Archivo',
@@ -12,7 +16,7 @@ export default function TeacherPanelMenu() {
                     items: [
                         {
                             label: 'Ingles primero de ciencias A',
-                            icon: 'pi pi-fw pi-bookmark'
+                            icon: 'pi pi-fw pi-bookmark',     
                         },
                         {
                             label: 'Ingles primero de ciencias B',
@@ -58,9 +62,13 @@ export default function TeacherPanelMenu() {
                 {
                   separator: true
                 },
-                  {
+                {
                     label: 'Salir',
-                    icon: 'pi pi-fw pi-power-off'
+                    icon: 'pi pi-fw pi-power-off',
+                    command: ()=>{
+                       sessionStorage.clear();
+                        navigate("/");
+                    }
                 }
             ]
         },
@@ -131,11 +139,12 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Preguntas frecuentes',
                     icon: 'pi pi-fw pi-question',
-
                 }
             ]
         }
     ];
+
+
 
     return (
         <div className="card" id='TP-menu'>

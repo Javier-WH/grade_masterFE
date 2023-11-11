@@ -45,3 +45,21 @@ ConfirmDialogProvider.propTypes = {
 ConfirmDialogProvider.propTypes = {
   children: PropTypes.node
 };
+
+
+
+  /*showToast(
+      {
+        severity: 'success', 
+        summary: 'Hola', 
+        detail: 'Esto es una prueba'
+      }
+      )
+    showConfirmDialog(
+      {
+        header: 'Advertencia', 
+        icon:'', 
+        message: 'Desea Guardar los cambios',
+        action: ()=> handleDialog
+      }
+    );*/

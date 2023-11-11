@@ -1,21 +1,22 @@
-import {createBrowserRouter} from "react-router-dom"
-import Login from '../views/login/login.jsx'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from '../views/login/login.jsx';
 import TeacherPanel from "../views/teacherPanel/teacherPanel.jsx";
 import NotFoundPage from "../components/notFound/notFound.jsx";
+import ProtectedRoutes from "./protected.jsx";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Login/>,
-    errorElement: <NotFoundPage/>
 
-  },
-  {
-    path: "/teacher",
-    element: <TeacherPanel/>,
-    errorElement: <NotFoundPage/>
-  }
-]);
+const AppRouter = () => {
+  return (
+    <Router>
+      <Routes>
+        <Route element={<Login/>} path="/"/>
+        <Route element={<ProtectedRoutes/>} >
+          <Route element={<TeacherPanel/>} path="/teacher" />
+        </Route>
+        <Route element={<NotFoundPage/>} path="*" />
+      </Routes>
+    </Router>
+  );
+};
 
-export default router
-
+export default AppRouter;

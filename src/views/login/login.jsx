@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react'
+import {useContext, useEffect, useState } from 'react'
 import UserInput from '../../components/inputs/userInput.jsx'
 import BasicPassword from '../../components/inputs/passwordInput.jsx'
 import { Button } from 'primereact/button';
+import useLogin from '../../hooks/useLogin.jsx';
 import {useNavigate} from 'react-router-dom';
 import { ToastContext } from '../../context/toastContext.jsx';
 //import { ConfirmDialogContext } from '../../context/confirmDialogoContext.jsx';
@@ -11,33 +12,35 @@ import './login.css'
 export default function Login(){
 
   const navigate = useNavigate()
-  const { showToast } = useContext(ToastContext)
-  //const { showConfirmDialog} = useContext(ConfirmDialogContext);
+  
+  const {showToast} = useContext(ToastContext)
   const [passValue, setPassValue] = useState("")
   const [userValue, setUserValue] = useState("")
+  const [data, setData] = useLogin()
 
- /* const handleDialog = option =>{
-    alert(option)
-  }*/
 
-  const handleLogin = ()=>{
-    navigate("/teacher")
-    showToast(
-      {
-        severity: 'success', 
-        summary: 'Hola', 
-        detail: 'Esto es una prueba'
-      }
-      )
-    /*showConfirmDialog(
-      {
-        header: 'Advertencia', 
-        icon:'', 
-        message: 'Desea Guardar los cambios',
-        action: ()=> handleDialog
-      }
-    );*/
+
+  const handleLogin = async ()=>{
+    setData({
+      user: userValue,
+      password: passValue
+    })
   }
+
+ useEffect(() => {
+    const { error, id, Authorization } = data;
+    if (error) {
+      showToast({
+        severity: 'error',
+        summary: 'Error',
+        detail: error
+      });
+    } else if (id && Authorization) {
+      sessionStorage.setItem('Authorization', Authorization);
+      sessionStorage.setItem('id', id);
+      navigate("/teacher");
+    }
+  }, [data, showToast, navigate]);
 
   return (
     <>
