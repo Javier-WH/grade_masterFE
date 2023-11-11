@@ -42,9 +42,6 @@ ConfirmDialogProvider.propTypes = {
   children: PropTypes.node
 };
 
-ConfirmDialogProvider.propTypes = {
-  children: PropTypes.node
-};
 
 
 
