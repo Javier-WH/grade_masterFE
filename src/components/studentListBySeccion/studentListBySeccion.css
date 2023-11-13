@@ -1,0 +1,23 @@
+.SL-student{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  cursor: pointer;
+  margin-bottom: 0.2em;
+}
+
+#SL-tableHeader{
+  margin-bottom: .5em;
+  font-weight: 700;
+  color: var(--text-color-secondary);
+  pointer-events: none;
+}
+
+.SL-student > div{
+  font-size: 1em;
+}
+
+@media (width < 500px){
+  .SL-student > div{
+    font-size: 0.8em;
+  }
+}

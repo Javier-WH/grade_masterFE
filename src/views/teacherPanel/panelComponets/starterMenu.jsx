@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 
 export default function StarterMenu() {
-   const { teacherSubjects, setSubjectId, setActiveSubject } = useContext(TeacherPanelContext)
+   const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent } = useContext(TeacherPanelContext)
 
     const items = teacherSubjects.map(item =>{
         const label = `${item.subjectName} ${item.academicYearName} ${item.seccionName}`
@@ -15,6 +15,7 @@ export default function StarterMenu() {
             command: ()=> {
                 setSubjectId(item.idSubject)
                 setActiveSubject(label)
+                setActiveStudent(null)
             }
         }
     })

@@ -5,7 +5,7 @@ import { useContext } from 'react';
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
-    const { teacherSubjects, setSubjectId, setActiveSubject } = useContext(TeacherPanelContext)
+    const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent} = useContext(TeacherPanelContext)
 
     const subjects = teacherSubjects.map(item =>{
         const label = `${item.subjectName} ${item.academicYearName} ${item.seccionName}`
@@ -15,6 +15,7 @@ export default function TeacherPanelMenu() {
             command: ()=> {
                 setSubjectId(item.idSubject)
                 setActiveSubject(label)
+                setActiveStudent(null)
             }
         }
     })

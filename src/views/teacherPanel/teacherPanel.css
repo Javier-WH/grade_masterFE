@@ -61,7 +61,18 @@
   right: 0;
   width: 15em;
 }
-
+#TP-notActiveStudent{
+    grid-area: container;
+    width: 30em;
+    height: 50vh;
+}
+#TP-notActiveStudent-title{
+  color: var(--text-color-secondary);
+  width: 100%;
+  margin-bottom: 2em;
+  text-align: center;
+  pointer-events: none;
+}
 #TP-main-container{
   min-height: 100vh;
   min-width: 100vw;
@@ -72,6 +83,8 @@
     ". . . . ."
     ". . . . .";
 }
+
+
 
 @media (width < 960px){
   #TP-main-container{
@@ -91,6 +104,7 @@
       width: 200%;
       border-radius: 0%;
   }
+  
 
 }
 
@@ -109,4 +123,8 @@
   #TP-SM-title{
     font-size: 1em;
   }
+  #TP-notActiveStudent{
+    width: 100vw;
+    height: 80vh;
+}
 }
