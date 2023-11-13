@@ -7,6 +7,7 @@ import useSubjectNames from "../hooks/useSubjectNames.jsx"
 import useSeccionNames from "../hooks/useSeccionNames.jsx"
 import useSeccions from "../hooks/useSeccions.jsx"
 import useTeacherSubjects from "../hooks/useTeacherSubjects.jsx"
+import useSeccionBySubjectId from "../hooks/useSeccionBySubjectId.jsx"
 
 
 export const TeacherPanelContext = createContext();
@@ -20,8 +21,13 @@ export function TeacherPanelContextProvider(props) {
   const subjectNames = useSubjectNames()
   const seccions = useSeccions()
   const teacherSubjects = useTeacherSubjects()
-  const [studentList, setStudentList] = useState()
+  const [subjectId, setSubjectId] = useState()
+  const [periodId, setPeriod] = useState("4a9f6e8c-2b51-4d9a-ae1c-3d7f0a6c8b9e")
+  const studentList = useSeccionBySubjectId({id: subjectId, idPeriod:periodId})
+  const [activeSubject, setActiveSubject] = useState()
+  
 
+  //console.log(activeSubject)
 
   const values ={
     academicYears,
@@ -31,8 +37,14 @@ export function TeacherPanelContextProvider(props) {
     seccionNames,
     seccions,
     teacherSubjects,
+    periodId,
+    setPeriod,
+    subjectId,
+    setSubjectId,
     studentList,
-    setStudentList
+    activeSubject,
+    setActiveSubject
+  
   }
 
   return (

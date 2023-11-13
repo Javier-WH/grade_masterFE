@@ -5,16 +5,21 @@ import { useContext } from 'react';
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
-    const { teacherSubjects } = useContext(TeacherPanelContext)
+    const { teacherSubjects, setSubjectId, setActiveSubject } = useContext(TeacherPanelContext)
 
     const subjects = teacherSubjects.map(item =>{
+        const label = `${item.subjectName} ${item.academicYearName} ${item.seccionName}`
         return {
-            label: `${item.subjectName} ${item.academicYearName} ${item.seccionName}`,
+            label,
             icon: 'pi pi-fw pi-bookmark',
+            command: ()=> {
+                setSubjectId(item.idSubject)
+                setActiveSubject(label)
+            }
         }
     })
 
-    // console.log(teacherSubjects)
+     //console.log(teacherSubjects)
     const items = [
         {
             label: 'Archivo',
