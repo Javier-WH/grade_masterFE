@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import SeccionName from "../fetch/fetchSeccionNames.js";
+import Seccion from "../fetch/fetchSeccions.js";
 
-export default function useSeccionNames() {
+export default function useSeccions() {
   
   const [response, setResponse] = useState([]);
 
@@ -10,20 +10,20 @@ export default function useSeccionNames() {
     const fetchData = async () => {
       try {
         let page = 1
-        const data = await SeccionName({page});
+        const data = await Seccion({page});
         const totalPages = data.totalPages
-        let seccionNames = data.seccionNames
+        let seccions = data.seccions
 
         while(page <= totalPages && totalPages > 1){
           page++
-          const data = await SeccionName({page});
-          const _seccionNames = data.seccionNames
-          seccionNames = [
-            ...seccionNames,
-            ..._seccionNames
+          const data = await Seccion({page});
+          const _seccions = data.seccions
+          seccions = [
+            ...seccions,
+            ..._seccions
           ]
         }
-        setResponse(seccionNames);
+        setResponse(seccions);
       } catch (error) {
         setResponse(null);
       }

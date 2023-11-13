@@ -1,10 +1,20 @@
 import { Menubar } from 'primereact/menubar';
 import { useNavigate } from 'react-router-dom';
-
+import { TeacherPanelContext } from '../../../context/teacherPanelContext.jsx';
+import { useContext } from 'react';
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
+    const { teacherSubjects } = useContext(TeacherPanelContext)
 
+    const subjects = teacherSubjects.map(item =>{
+        return {
+            label: `${item.subjectName} ${item.academicYearName} ${item.seccionName}`,
+            icon: 'pi pi-fw pi-bookmark',
+        }
+    })
+
+    // console.log(teacherSubjects)
     const items = [
         {
             label: 'Archivo',
@@ -13,33 +23,7 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Secciones',
                     icon: 'pi pi-fw pi-book',
-                    items: [
-                        {
-                            label: 'Ingles primero de ciencias A',
-                            icon: 'pi pi-fw pi-bookmark',     
-                        },
-                        {
-                            label: 'Ingles primero de ciencias B',
-                            icon: 'pi pi-fw pi-bookmark'
-                        },
-                              {
-                            label: 'Castellano primer año A',
-                            icon: 'pi pi-fw pi-bookmark'
-                        },
-                        {
-                            label: 'Castellano segundo año A',
-                            icon: 'pi pi-fw pi-bookmark'
-                        },
-                        {
-                            label: 'Castellano primer año B',
-                            icon: 'pi pi-fw pi-bookmark'
-                        },
-                        {
-                            label: 'Castellano segundo año B',
-                            icon: 'pi pi-fw pi-bookmark'
-                        },
-
-                    ]
+                    items: subjects
                 },
                 {
                   label: 'Plan de evaluación',
