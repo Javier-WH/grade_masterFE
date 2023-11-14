@@ -7,9 +7,10 @@ export default function StudentListBySeccion(){
   const { studentList, setActiveStudent} = useContext(TeacherPanelContext)
 
 
-  const handleClick = id =>{
-    setActiveStudent(id)
+  const handleClick = index =>{
+    setActiveStudent(index)
   }
+
 
 
   return <>
@@ -19,12 +20,12 @@ export default function StudentListBySeccion(){
         <div>Cédula</div>
     </div>
     {
-     studentList.map(student =>{
+     studentList.map((student, index) =>{
       return <div 
       key={student.studentId} 
       id={student.studentId} 
       className="SL-student"
-      onClick={()=>handleClick(student.studentId)}
+      onClick={()=>handleClick(index)}
       >
         <div>{student.studentName}</div>
         <div>{student.studentLastName}</div>

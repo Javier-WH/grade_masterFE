@@ -25,10 +25,10 @@ export function TeacherPanelContextProvider(props) {
   const [periodId, setPeriod] = useState("4a9f6e8c-2b51-4d9a-ae1c-3d7f0a6c8b9e")
   const studentList = useSeccionBySubjectId({id: subjectId, idPeriod:periodId})
   const [activeSubject, setActiveSubject] = useState()
-  const [activeStudent, setActiveStudent] = useState()
+  const [activeStudent, setActiveStudent] = useState(null)
   
 
-  //console.log(activeSubject)
+  // console.log(activeStudent)
 
   const values ={
     academicYears,

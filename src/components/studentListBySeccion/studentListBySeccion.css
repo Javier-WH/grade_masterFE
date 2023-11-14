@@ -1,8 +1,11 @@
 .SL-student{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 2fr 2fr 1fr;
   cursor: pointer;
   margin-bottom: 0.2em;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 0.2em;
 }
 
 #SL-tableHeader{
@@ -14,6 +17,10 @@
 
 .SL-student > div{
   font-size: 1em;
+}
+.SL-student:hover{
+  color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 @media (width < 500px){

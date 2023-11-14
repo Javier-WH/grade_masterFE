@@ -1,6 +1,6 @@
 
 import { Menu } from 'primereact/menu';
-import { TeacherPanelContext } from '../../../context/teacherPanelContext.jsx';
+import { TeacherPanelContext } from '../../../../context/teacherPanelContext.jsx';
 import { useContext } from 'react';
 
 

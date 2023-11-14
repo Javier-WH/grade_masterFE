@@ -1,11 +1,15 @@
 import { Menubar } from 'primereact/menubar';
 import { useNavigate } from 'react-router-dom';
 import { TeacherPanelContext } from '../../../context/teacherPanelContext.jsx';
-import { useContext } from 'react';
+import ShowStudentList from './menuComponents/list.jsx';
+import { useContext, useState } from 'react';
+
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
     const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent} = useContext(TeacherPanelContext)
+    
+    const [showList, setShowList] = useState(false)
 
     const subjects = teacherSubjects.map(item =>{
         const label = `${item.subjectName} ${item.academicYearName} ${item.seccionName}`
@@ -19,6 +23,8 @@ export default function TeacherPanelMenu() {
             }
         }
     })
+
+
 
      //console.log(teacherSubjects)
     const items = [
@@ -92,6 +98,7 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Nomina',
                     icon: 'pi pi-fw pi-list',
+                    command: ()=> setShowList(true)
 
                 },
                 {
@@ -139,6 +146,7 @@ export default function TeacherPanelMenu() {
     return (
         <div className="card" id='TP-menu'>
             <Menubar model={items} />
+            <ShowStudentList showList = {showList} setShowList={setShowList}/>
         </div>
     )
 }

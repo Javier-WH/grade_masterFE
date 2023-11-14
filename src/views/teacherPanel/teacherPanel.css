@@ -26,8 +26,13 @@
 
 
 .TP-label{
-  color: var(--text-color-secondary) ;
-  text-indent: 1em;
+  color: var(--text-color-secondary);
+
+}
+#TP-studentCi{
+  color: var(--text-color-secondary);
+  font-size: 1.2em;
+  font-weight: 550;
 }
 
 .TP-ci,
@@ -84,7 +89,20 @@
     ". . . . .";
 }
 
+#TP-ci-buttons-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
 
+#TP-buttonContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.TP-student-button{
+  scale: 1.2;
+}
 
 @media (width < 960px){
   #TP-main-container{
