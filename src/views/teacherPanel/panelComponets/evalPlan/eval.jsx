@@ -1,8 +1,10 @@
 import PropTypes from "prop-types"
 import { InputNumber } from 'primereact/inputnumber';
-import { useEffect, useState } from 'react'
+import { useEffect, useState} from 'react'
+
 
 export default function Eval({percent, desc, grade, date}){
+
   const [value, setValue] = useState(grade);
 
   const handleValue = (e)=>{

@@ -1,60 +1,47 @@
-import { useContext, useEffect, useState, } from 'react'
+import { useContext } from 'react'
 import { TeacherPanelContext } from '../../../../context/teacherPanelContext.jsx'
+import useTPEvalPlan from './evalPlanHooks/useTPEvalPlan.jsx'
+import { useTPlapseName } from './evalPlanHooks/useTPlapseName.jsx'
+import useTPtotal from './evalPlanHooks/useTPtotal.jsx'
+import { Button } from 'primereact/button';
 import Eval from './eval.jsx'
 import './evalPlanContainer.css'
 
 export default function EvalPlanContainer (){
 
 
-  const {evalPlanList, activeStudent, studentList, activeEvalPlan, setActiveEvalPlan} = useContext(TeacherPanelContext)
+  const { evalPlanList, activeEvalPlan, setActiveEvalPlan} = useContext(TeacherPanelContext)
 
-  const [EvalPlan, setEvalPlan] = useState()
-  
+  const EvalPlan = useTPEvalPlan()
+  const lapeName = useTPlapseName()
+  const defGrade = useTPtotal({EvalPlan})
 
 
 
-  useEffect(()=>{
-  
-    if(!evalPlanList){
-      return
-    }
-    const evalPlan = evalPlanList[activeEvalPlan]
-    const lapseid = evalPlan.idLapse
-    const dates = [];
-    const descs = [];
-    const pers = [];
-    
 
-    for (const key in evalPlan) {
-      if (key.startsWith("date")) {
-        dates.push(evalPlan[key]);
-      } else if (key.startsWith("desc")) {
-        descs.push(evalPlan[key]);
-      } else if (key.startsWith("per")) {
-        pers.push(evalPlan[key]);
-      }
+  const nextEvalPlan = () =>{
+    let evalPlanCount = evalPlanList.length
+    let currentEvalPlan = activeEvalPlan
+
+    if(currentEvalPlan + 1 >= evalPlanCount){
+      setActiveEvalPlan(0)
+    }else{
+      setActiveEvalPlan(currentEvalPlan + 1)
     }
 
+  }
 
-    const studentGrades = studentList[activeStudent].grades
-    const evals = studentGrades.filter(lapse => lapse.lapseid === lapseid)[0].evals
+  const previusEvalPlan = () =>{
+    let evalPlanCount = evalPlanList.length
+    let currentEvalPlan = activeEvalPlan
 
-
-    const items = dates.map((date, i)=>{
-      return {
-        date,
-        desc: descs[i],
-        pers: pers[i],
-        eval: evals["eval"+(i+1)]
-      }
-    })
-
-
-
-
-    setEvalPlan(items)
-
-  }, [activeStudent, evalPlanList, activeEvalPlan, studentList])
+    if(currentEvalPlan - 1 < 0){
+      setActiveEvalPlan(evalPlanCount-1)
+    }else{
+      setActiveEvalPlan(currentEvalPlan - 1)
+    }
+  }
+ 
 
 
 
@@ -62,8 +49,14 @@ export default function EvalPlanContainer (){
     return  <h3>no hay plan de evaluación</h3>
   }
 
-
   return <>
+    
+      <div id='TP-evalPlan-buttonsLapse-container'>
+        <Button className='TP-evalPlan-buttonsLapse-item' icon="pi pi-chevron-left"  text aria-label="Filter" onClick={previusEvalPlan}/>
+        <h3 className='TP-evalPlan-buttonsLapse-item TP-evalPlan-buttonsLapse-text'>{lapeName}</h3>
+        <Button  className='TP-evalPlan-buttonsLapse-item' icon="pi pi-chevron-right"  text aria-label="Filter" onClick={nextEvalPlan}/>
+        <h4 className='TP-evalPlan-buttonsLapse-total' >{defGrade}</h4>
+      </div>
       <div id='TP-evalPlan-container'>
       {
         EvalPlan.map(evaluation => {

@@ -19,6 +19,9 @@
   .Container-title{
     font-size: .8em;
   }
+  .Container{
+    margin-top: 2em;
+  }
 }
 @media (width < 320px){
   .Container-title{

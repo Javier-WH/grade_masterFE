@@ -1,5 +1,5 @@
 #TP-evalPlan-container{
-  margin-top: 2em;
+  margin-top: 0em;
   height: auto;
 
   display: grid;
@@ -34,5 +34,41 @@
 .TP-evalPlan-eval-grade .p-inputtext:enabled:focus  {
   box-shadow: none;
   color: var(--primary-color);
+
+}
+
+#TP-evalPlan-buttonsLapse-container{
+  border-top: 0.1em solid  var(--surface-200);
+  margin-top: 1em;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr  1fr;
+  align-items: center;
+  
+}
+.TP-evalPlan-buttonsLapse-save,
+.TP-evalPlan-buttonsLapse-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 2em;
+  text-align: center;
+  font-size: 1em;
+
+}
+.TP-evalPlan-buttonsLapse-text{
+  color: var(--text-color-secondary);
+}
+.TP-evalPlan-buttonsLapse-save{
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  scale: 2;
+}
+.TP-evalPlan-buttonsLapse-total{
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 1.5em;
 
 }
