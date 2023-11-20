@@ -24,6 +24,10 @@
   justify-content: center;
   color: var(--text-color-secondary);
   font-weight: 600;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0.05s;
 }
 .TP-evalPlan-eval-percent{
   font-size: 1.3em;
@@ -31,10 +35,38 @@
 .TP-evalPlan-eval-date{
   font-size: 0.7em;
 }
-.TP-evalPlan-eval-grade .p-inputtext:enabled:focus  {
-  box-shadow: none;
-  color: var(--primary-color);
 
+.TP-evalPlan-eval-grade{
+  background-color: transparent;
+  width: 90%;
+  box-sizing: border-box;
+  border: none;
+  text-align: center;
+  margin-top: 0.2em;
+  font-size: 2.5em;
+  color: var(--primary-color);
+  font-weight: 550;
+  outline: none;
+  border: 1px solid transparent;
+  border-radius: 5%;
+
+}
+
+.TP-evalPlan-eval-grade:focus{
+  border-color: var(--primary-color);
+  background-color: var(--surface-d);
+  color: var(--primary-color);
+}
+
+.focusGrade{
+  background-color: var(--primary-color);
+  color:  var(--surface-d)
+}
+
+.TP-evalPlan-eval-grade::-webkit-inner-spin-button,
+.TP-evalPlan-eval-grade::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 #TP-evalPlan-buttonsLapse-container{
@@ -70,5 +102,22 @@
   text-align: center;
   color: var(--primary-color);
   font-size: 1.5em;
+  margin: 0;
 
+}
+.TP-evalPlan-buttonsLapse-total-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 5em;
+
+}
+.TP-evalPlan-buttonsLapse-total-container span{
+  color: var(--text-color-secondary);
+  font-size: 0.8em;
+  text-align: center;
+}
+.exalted{
+  border-color: var(--surface-500);
 }

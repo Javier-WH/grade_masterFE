@@ -17,8 +17,6 @@ export default function EvalPlanContainer (){
   const defGrade = useTPtotal({EvalPlan})
 
 
-
-
   const nextEvalPlan = () =>{
     let evalPlanCount = evalPlanList.length
     let currentEvalPlan = activeEvalPlan
@@ -43,8 +41,6 @@ export default function EvalPlanContainer (){
   }
  
 
-
-
   if(!EvalPlan){
     return  <h3>no hay plan de evaluación</h3>
   }
@@ -55,7 +51,10 @@ export default function EvalPlanContainer (){
         <Button className='TP-evalPlan-buttonsLapse-item' icon="pi pi-chevron-left"  text aria-label="Filter" onClick={previusEvalPlan}/>
         <h3 className='TP-evalPlan-buttonsLapse-item TP-evalPlan-buttonsLapse-text'>{lapeName}</h3>
         <Button  className='TP-evalPlan-buttonsLapse-item' icon="pi pi-chevron-right"  text aria-label="Filter" onClick={nextEvalPlan}/>
-        <h4 className='TP-evalPlan-buttonsLapse-total' >{defGrade}</h4>
+        <div className='TP-evalPlan-buttonsLapse-total-container'>
+          <span>def / acum</span>
+          <h4 className='TP-evalPlan-buttonsLapse-total' >{defGrade}</h4>
+        </div>
       </div>
       <div id='TP-evalPlan-container'>
       {
