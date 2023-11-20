@@ -6,6 +6,7 @@ import usePeriods from "../hooks/usePeriods.jsx"
 import useSubjectNames from "../hooks/useSubjectNames.jsx"
 import useSeccionNames from "../hooks/useSeccionNames.jsx"
 import useSeccions from "../hooks/useSeccions.jsx"
+import useEvalPlan from "../hooks/useEvalPlan.jsx"
 import useTeacherSubjects from "../hooks/useTeacherSubjects.jsx"
 import useSeccionBySubjectId from "../hooks/useSeccionBySubjectId.jsx"
 
@@ -26,9 +27,11 @@ export function TeacherPanelContextProvider(props) {
   const studentList = useSeccionBySubjectId({id: subjectId, idPeriod:periodId})
   const [activeSubject, setActiveSubject] = useState()
   const [activeStudent, setActiveStudent] = useState(null)
-  
+  const evalPlanList = useEvalPlan({idSubject: subjectId})
+  const [activeEvalPlan, setActiveEvalPlan] = useState(0)
 
-  // console.log(activeStudent)
+
+ // console.log(evalPlanList)
 
   const values ={
     academicYears,
@@ -46,7 +49,10 @@ export function TeacherPanelContextProvider(props) {
     activeSubject,
     setActiveSubject,
     activeStudent, 
-    setActiveStudent
+    setActiveStudent,
+    evalPlanList,
+    activeEvalPlan,
+    setActiveEvalPlan
   
   }
 

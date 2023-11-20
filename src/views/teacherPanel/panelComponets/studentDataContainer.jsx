@@ -7,6 +7,7 @@ import { useContext } from "react"
 import { Button } from 'primereact/button';
 import NotFoundStudent from "./studentDataContainerComponents/notFoundStudent.jsx"
 import NotActiveStudent from "./studentDataContainerComponents/notActiveStudent.jsx"
+import EvalPlanContainer from "./evalPlan/evalPlanContainer.jsx"
 
 export default function StudentDataContainer(){
 
@@ -71,7 +72,7 @@ export default function StudentDataContainer(){
             </div>   
           </div>
         </div>
-        
+        <EvalPlanContainer/>
       </Container>
     </>   
 
