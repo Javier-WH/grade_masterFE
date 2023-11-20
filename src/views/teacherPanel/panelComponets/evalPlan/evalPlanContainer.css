@@ -24,6 +24,7 @@
   justify-content: center;
   color: var(--text-color-secondary);
   font-weight: 600;
+  cursor: pointer;
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease;
@@ -31,9 +32,15 @@
 }
 .TP-evalPlan-eval-percent{
   font-size: 1.3em;
+   user-select: none;
+ 
 }
 .TP-evalPlan-eval-date{
   font-size: 0.7em;
+  user-select: none;
+}
+.TP-evalPlan-eval-desc{
+   user-select: none;
 }
 
 .TP-evalPlan-eval-grade{
@@ -49,6 +56,7 @@
   outline: none;
   border: 1px solid transparent;
   border-radius: 5%;
+  
 
 }
 

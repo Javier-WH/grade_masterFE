@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Eval({percent, desc, grade, date}) {
   const [value, setValue] = useState(grade);
   const [isFocus, setIsFocus] = useState(false)
+  const inputRef = useRef(null);
+
   const handleValue = (e) => {
     setValue(e.target.value);
   };
@@ -15,9 +17,13 @@ export default function Eval({percent, desc, grade, date}) {
     setValue(grade);
   }, [grade]);
 
+    const handleClick = () => {
+    inputRef.current.focus();
+  };
+
   return (
     <>
-      <div className={`TP-evalPlan-eval ${isFocus ? "focusGrade" : ""}`}>
+      <div className={`TP-evalPlan-eval ${isFocus ? "focusGrade" : ""}`}   onClick={handleClick}>
         <span className="TP-evalPlan-eval-date">{date}</span>
         <span className="TP-evalPlan-eval-desc">{desc}</span>
         <span className="TP-evalPlan-eval-percent">{`${percent}%`}</span>
@@ -28,6 +34,7 @@ export default function Eval({percent, desc, grade, date}) {
           onChange={handleValue} 
           onFocus={()=>setIsFocus(true)}
           onBlur={()=> setIsFocus(false)}
+          ref={inputRef}
         />
       </div>
     </>
