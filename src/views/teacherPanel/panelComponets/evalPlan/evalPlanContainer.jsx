@@ -39,7 +39,8 @@ export default function EvalPlanContainer (){
       setActiveEvalPlan(currentEvalPlan - 1)
     }
   }
- 
+  
+  let key = 1;
 
   if(!EvalPlan){
     return  <h3>no hay plan de evaluación</h3>
@@ -58,8 +59,9 @@ export default function EvalPlanContainer (){
       </div>
       <div id='TP-evalPlan-container'>
       {
+
         EvalPlan.map(evaluation => {
-          return  <Eval key={evaluation.date} percent = {evaluation.pers} desc = {evaluation.desc} date = {evaluation.date}  grade = {evaluation.eval}/>
+          return  <Eval key={key++} percent = {evaluation.pers} desc = {evaluation.desc} date = {evaluation.date}  grade = {evaluation.eval ? evaluation.eval : ""} position = {key}/>
         })
       }
       </div> 

@@ -37,5 +37,5 @@ export default function useSeccionBySubjectId({id, idPeriod}) {
     fetchData();
   }, [id, idPeriod]);
   
-  return response;
+  return [response, setResponse];
 }

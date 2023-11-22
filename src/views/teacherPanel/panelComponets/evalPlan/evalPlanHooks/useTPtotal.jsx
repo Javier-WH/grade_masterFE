@@ -13,7 +13,7 @@ export default function useTPtotal({EvalPlan}){
     
     let total = 0;
     for (let plan of EvalPlan){
-      const grade = plan.eval
+      const grade = plan.eval ? plan.eval : 1
       const percent = plan.pers
       const points = (grade * percent) / 100
       total += points
