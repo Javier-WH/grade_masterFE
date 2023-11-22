@@ -17,6 +17,8 @@ export default function Eval({percent, desc, grade, date, position}) {
     }
 
     const input = e.target.value 
+
+
     const list = [...studentList]
     const lapseid = evalPlanList[activeEvalPlan].idLapse
     //const studentid = studentList[activeStudent].studentId
@@ -99,31 +101,25 @@ function isLapseExist(array, lapseId) {
   return false; 
 }
 
+
+
 function isValidGrade(grade) {
-  if(grade ===""){
-    return true
+  if (grade === "") {
+    return true;
   }
-  if (grade.includes(" ")) {
+
+
+
+  if (Number.isNaN(grade) || grade < 0 || grade > 20 || grade.includes(" ")) {
     return false;
   }
 
-  const gradeNumber = parseFloat(grade); 
-
-  if (isNaN(gradeNumber)) {
+  const gradeNumber = parseFloat(grade)
+  if (parseFloat(gradeNumber.toFixed(2)) != grade) {
     return false;
   }
 
-  if (gradeNumber < 0) {
-    return false;
-  }
-
-  if (gradeNumber > 20) {
-    return false;
-  }
-
-  if (parseFloat(gradeNumber.toFixed(2)) !== gradeNumber) {
-    return false;
-  }
 
   return true;
 }
+
