@@ -2,14 +2,40 @@ import { Menubar } from 'primereact/menubar';
 import { useNavigate } from 'react-router-dom';
 import { TeacherPanelContext } from '../../../context/teacherPanelContext.jsx';
 import ShowStudentList from './menuComponents/list.jsx';
+import ShowSave from './menuComponents/save/showSave.jsx';
 import { useContext, useState } from 'react';
-
+import { ConfirmDialogContext } from '../../../context/confirmDialogoContext.jsx';
+import { ToastContext } from '../../../context/toastContext.jsx';
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
-    const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent} = useContext(TeacherPanelContext)
+    const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent, gradesToSave, setGradesToSave} = useContext(TeacherPanelContext)
     
     const [showList, setShowList] = useState(false)
+    const [showSave, setShowSave] = useState(false)
+    const {showConfirmDialog} = useContext(ConfirmDialogContext)
+     const {showToast} = useContext(ToastContext)
+
+
+    const askToSave = () => {
+         showConfirmDialog({
+            header: 'Hay notas sin guardar',
+            icon: 'pi pi-exclamation-triangle',
+            message: '¿Desea Guardar los cambios?',
+              action: (confirmed) => {
+                if (confirmed) {
+                    setShowSave(true)
+                }else{
+                    showToast({
+                        severity : 'warn',
+                        summary : 'Advertencia',
+                        detail : 'Las notas no fueron guardadas'
+                    });
+                    setGradesToSave([])
+                }
+            }
+        });
+    };
 
     const subjects = teacherSubjects.map(item =>{
         const label = `${item.subjectName} ${item.academicYearName} ${item.seccionName}`
@@ -17,6 +43,9 @@ export default function TeacherPanelMenu() {
             label,
             icon: 'pi pi-fw pi-bookmark',
             command: ()=> {
+                if(gradesToSave.length > 0){
+                    askToSave()
+                }
                 setSubjectId(item.idSubject)
                 setActiveSubject(label)
                 setActiveStudent(null)
@@ -24,9 +53,7 @@ export default function TeacherPanelMenu() {
         }
     })
 
-
-
-     //console.log(teacherSubjects)
+ 
     const items = [
         {
             label: 'Archivo',
@@ -53,7 +80,8 @@ export default function TeacherPanelMenu() {
                 },
                 {
                     label: 'Guardar',
-                    icon: 'pi pi-fw pi-save'
+                    icon: 'pi pi-fw pi-save',
+                    command: ()=> setShowSave(true)
                 },
                 {
                   separator: true
@@ -147,6 +175,7 @@ export default function TeacherPanelMenu() {
         <div className="card" id='TP-menu'>
             <Menubar model={items} />
             <ShowStudentList showList = {showList} setShowList={setShowList}/>
+            <ShowSave showSave = {showSave} setShowSave = { setShowSave} />
         </div>
     )
 }

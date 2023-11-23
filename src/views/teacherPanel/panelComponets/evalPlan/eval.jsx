@@ -6,7 +6,7 @@ export default function Eval({percent, desc, grade, date, position}) {
   const [value, setValue] = useState(grade);
   const [isFocus, setIsFocus] = useState(false)
   const inputRef = useRef(null);
-  const {studentList, setStudentList , activeStudent, evalPlanList, activeEvalPlan} = useContext(TeacherPanelContext)
+  const {studentList, setStudentList , activeStudent, evalPlanList, activeEvalPlan, addGradesToSave} = useContext(TeacherPanelContext)
 
 
 
@@ -21,11 +21,9 @@ export default function Eval({percent, desc, grade, date, position}) {
 
     const list = [...studentList]
     const lapseid = evalPlanList[activeEvalPlan].idLapse
-    //const studentid = studentList[activeStudent].studentId
-    //const evalPlanid = evalPlanList[activeEvalPlan].idEvaluationPlan
-   // const evalPlan = evalPlanList[activeEvalPlan]
-
-
+    const idStudent = studentList[activeStudent].studentId
+    const idEvaluationPlan = evalPlanList[activeEvalPlan].idEvaluationPlan
+    const studentName = `${list[activeStudent].studentLastName} ${list[activeStudent].studentName}`
     const lapseExist = isLapseExist(list[activeStudent].grades, lapseid )
 
     if(lapseExist){
@@ -45,6 +43,14 @@ export default function Eval({percent, desc, grade, date, position}) {
       )
     }
 
+    const dataToSave = {
+      studentName,
+      idStudent,
+      idEvaluationPlan,
+      [`eval${position}`]: input
+    }
+
+    addGradesToSave(dataToSave)
     setStudentList(list)
 
   };
@@ -107,8 +113,6 @@ function isValidGrade(grade) {
   if (grade === "") {
     return true;
   }
-
-
 
   if (Number.isNaN(grade) || grade < 0 || grade > 20 || grade.includes(" ")) {
     return false;

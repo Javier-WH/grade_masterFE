@@ -16,7 +16,9 @@ export const ConfirmDialogProvider = ({ children }) => {
     setIcon(icon);
     setMessage(message);
     setVisible(true);
-    setDialogCallback(action); 
+     if (typeof action === 'function') {
+      setDialogCallback(() => action);
+    }
   };
 
 
