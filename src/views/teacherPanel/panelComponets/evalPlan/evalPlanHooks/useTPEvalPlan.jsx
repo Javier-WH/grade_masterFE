@@ -10,7 +10,7 @@ export default function useTPEvalPlan(){
   useEffect(()=>{
   
     if(!evalPlanList){
-      return
+      return 
     }
     const evalPlan = evalPlanList[activeEvalPlan]
     const lapseid = evalPlan.idLapse
@@ -31,8 +31,9 @@ export default function useTPEvalPlan(){
 
 
     const studentGrades = studentList[activeStudent].grades
-    //const evals = studentGrades.filter(lapse => lapse.lapseid === lapseid)[0].evals
-    const filteredGrades = studentGrades.filter(lapse => lapse.lapseid === lapseid);
+   
+
+    const filteredGrades = studentGrades ? studentGrades.filter(lapse => lapse.lapseid === lapseid) : []
     const evals = filteredGrades.length > 0 ? filteredGrades[0].evals : null;
 
     const items = dates.map((date, i)=>{

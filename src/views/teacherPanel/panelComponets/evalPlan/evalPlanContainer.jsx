@@ -1,8 +1,9 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { TeacherPanelContext } from '../../../../context/teacherPanelContext.jsx'
 import useTPEvalPlan from './evalPlanHooks/useTPEvalPlan.jsx'
 import { useTPlapseName } from './evalPlanHooks/useTPlapseName.jsx'
 import useTPtotal from './evalPlanHooks/useTPtotal.jsx'
+import ShowEPC from './evalPlanCreator/showEvalPlanCreator.jsx'
 import { Button } from 'primereact/button';
 import Eval from './eval.jsx'
 import './evalPlanContainer.css'
@@ -15,6 +16,7 @@ export default function EvalPlanContainer (){
   const EvalPlan = useTPEvalPlan()
   const lapeName = useTPlapseName()
   const defGrade = useTPtotal({EvalPlan})
+  const [showEPC, setShowEPC] = useState(true) 
 
 
   const nextEvalPlan = () =>{
@@ -42,8 +44,14 @@ export default function EvalPlanContainer (){
   
   let key = 1;
 
+  
   if(!EvalPlan){
-    return  <h3>no hay plan de evaluación</h3>
+    return <div id='TP-evalPlan-notFound-container'>
+      <span>No se ha encontrado un plan de evaluiación</span>
+      <Button label="Crear nuevo plan de evaluación" rounded onClick={()=>setShowEPC(true)}/>
+      <ShowEPC showEPC= {showEPC} setShowEPC= {setShowEPC}/>
+    </div>
+     
   }
 
   return <>

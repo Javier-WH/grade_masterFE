@@ -8,7 +8,7 @@ export function useTPlapseName(){
 
   useEffect(()=>{
 
-    if(!lapseNames || !evalPlanList){
+    if(!lapseNames || !evalPlanList || activeEvalPlan === null){
       return
     }
 

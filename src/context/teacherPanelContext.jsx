@@ -27,7 +27,7 @@ export function TeacherPanelContextProvider(props) {
   const [studentList, setStudentList] = useSeccionBySubjectId({id: subjectId, idPeriod:periodId})
   const [activeSubject, setActiveSubject] = useState()
   const [activeStudent, setActiveStudent] = useState(null)
-  const evalPlanList = useEvalPlan({idSubject: subjectId})
+  const [evalPlanList, setEvalPlanList] = useEvalPlan({idSubject: subjectId})
   const [activeEvalPlan, setActiveEvalPlan] = useState(0)
   const [gradesToSave, setGradesToSave] = useState([]);
 
@@ -49,7 +49,7 @@ export function TeacherPanelContextProvider(props) {
   }
 
 
- //console.log(gradesToSave)
+  //console.log(studentList[activeStudent])
 
   const values ={
     academicYears,
@@ -70,6 +70,7 @@ export function TeacherPanelContextProvider(props) {
     activeStudent, 
     setActiveStudent,
     evalPlanList,
+    setEvalPlanList,
     activeEvalPlan,
     setActiveEvalPlan,
     gradesToSave,

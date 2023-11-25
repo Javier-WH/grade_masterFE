@@ -32,6 +32,6 @@ export default function useEvalPlan({idSubject}) {
     fetchData();
   }, [idSubject]);
   
-  return response;
+  return [response, setResponse];
 }
 

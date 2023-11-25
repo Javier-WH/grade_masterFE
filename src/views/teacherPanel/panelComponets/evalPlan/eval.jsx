@@ -24,6 +24,7 @@ export default function Eval({percent, desc, grade, date, position}) {
     const idStudent = studentList[activeStudent].studentId
     const idEvaluationPlan = evalPlanList[activeEvalPlan].idEvaluationPlan
     const studentName = `${list[activeStudent].studentLastName} ${list[activeStudent].studentName}`
+    
     const lapseExist = isLapseExist(list[activeStudent].grades, lapseid )
 
     if(lapseExist){
@@ -33,6 +34,9 @@ export default function Eval({percent, desc, grade, date, position}) {
         }
       }
     }else{
+      if(!list[activeStudent].grades){
+        list[activeStudent].grades = []
+      }
       list[activeStudent].grades.push(
         {
           lapseid,
@@ -98,6 +102,10 @@ Eval.propTypes = {
 
 
 function isLapseExist(array, lapseId) {
+  if(!array){
+    return false
+  }
+
   for (let i = 0; i < array.length; i++) {
 
     if (array[i].lapseid === lapseId) {
