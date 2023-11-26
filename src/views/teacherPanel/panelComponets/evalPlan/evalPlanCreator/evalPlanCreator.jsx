@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { TeacherPanelContext } from "../../../../../context/teacherPanelContext.jsx"
 import LapseSelector from "./lapseSelector.jsx"
 import InsertEvalPlan from "../../../../../fetch/fetchInsertEvalPlan.js"
@@ -7,6 +7,7 @@ import EvalPlanCalendar from "./evalPlanCalendar.jsx"
 import EvalPlanDesCription from "./evalPlanDescription.jsx"
 import EvalPlanPercent from "./evalPlanPercent.jsx"
 import { Button } from 'primereact/button';
+import { ToastContext } from '../../../../../context/toastContext.jsx';
 import './evalPlanCreator.css'
 
 //falta crear la funcion de armar el objeto que se envia a la base de datos y enviarlo
@@ -17,70 +18,7 @@ export default function EvalPlanCreator({closeFunction}){
   let { evalPlanList, subjectId, setEvalPlanList } = useContext(TeacherPanelContext)
   const [idLapse, setIdLapse] = useState(null)
   const [evaluationList, setEvalEuationList] = useState([])
-  
-
- /*
-  useEffect(()=>{
-    if(idLapse === null){
-      return
-    }
-
-    if(evalPlanList === null ){
-      const evalPlanData = {
-        idSubject:  subjectId,
-        idLapse,
-        dates: {
-          eval1: "08-07-2024",
-          eval2: "15-08-2024",
-          eval3: "30-08-2024",
-          eval4: "15-09-2024"
-        },
-        percents: {
-          eval1: 10,
-          eval2: 25,
-          eval3: 25,
-          eval4: 35
-        },
-        desc: {
-          eval1: "Examen",
-          eval2: "Examen",
-          eval3: "Examen",
-          eval4: "Examen"
-        }
-      }
-
-      InsertEvalPlan(evalPlanData)
-        .then(idEvaluationPlan =>{
-          if(idEvaluationPlan){
-          const newPlan = {
-            idEvaluationPlan,
-            idLapse,
-            idSubject: subjectId,
-            date1:"15-01-2022",
-            date2:"10-02-2022",
-            date3:"01-03-2022",
-            date4:"09-03-2022",
-            desc1:"examenXD",
-            desc2:"exposicionXd",
-            desc3:"trabajoXD",
-            desc4:"debateXD",
-            per1:"25",
-            per2:"25",
-            per3:"25",
-            per4:"25"
-          }
-          setEvalPlanList([newPlan])
-          }else{
-             alert("Ocurrió un error")
-          }
-        })
-
-
-      //setEvalPlanList([newPlan])
-    }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[idLapse])
-*/
+  const {showToast} = useContext(ToastContext)
 
   const addEval = ()=>{
     const evaluation =  {
@@ -103,12 +41,68 @@ export default function EvalPlanCreator({closeFunction}){
  //  console.log(evaluationList)
 
  const handleInsert = ()=>{
+  if(!idLapse){
+      showToast(
+        {
+          severity : 'warn',
+          summary : 'Advertencia',
+          detail : 'Debe seleccionar un lapso'
+        }
+      );
+    return
+  }
+
+  if(evaluationList.length === 0){
+         showToast(
+        {
+          severity : 'warn',
+          summary : 'Advertencia',
+          detail : 'No ha agregado ninguna evaluación'
+        }
+      );
+    return
+  }
   const dates = {}
   const percents = {}
   const desc = {}
 
   for (let [index, register] of evaluationList.entries()) {
     const date = register.date
+    const percent = register.per
+    const description = register.desc
+
+    if(date === "" || date === null){
+      showToast(
+        {
+          severity : 'warn',
+          summary : 'Advertencia',
+          detail : 'No puede haber fechas en blanco'
+        }
+      );
+      return
+    }
+    if(description === "" || description === null){
+      showToast(
+        {
+          severity : 'warn',
+          summary : 'Advertencia',
+          detail : 'No puede haber descripciones en blanco'
+        }
+      )
+      return
+    }
+
+    if(percent === "" || percent === null){
+      showToast(
+        {
+          severity : 'warn',
+          summary : 'Advertencia',
+          detail : 'No puede haber porcentajes en blanco'
+        }
+      )
+      return
+    }
+
     const day = date.getDate().toString().padStart(2, '0');
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const year = date.getFullYear();
@@ -116,8 +110,8 @@ export default function EvalPlanCreator({closeFunction}){
     
     const evaluation = `eval${index + 1}`
     dates[evaluation] = dateString
-    percents[evaluation] = register.per
-    desc[evaluation] = register.desc
+    percents[evaluation] = percent
+    desc[evaluation] = description
   }
   const evalPlanData = {
     idSubject:  subjectId,
@@ -126,6 +120,7 @@ export default function EvalPlanCreator({closeFunction}){
     percents,
     desc
   }
+  
 
   
   //console.log(newLocalPlan)
@@ -155,7 +150,14 @@ export default function EvalPlanCreator({closeFunction}){
           }
       
       }else{
-        alert("Ocurrió un error")
+        showToast(
+          {
+            severity : 'error',
+            summary : 'Error',
+            detail : 'Ha ocurrido un error, no se agregó el plan de evaluación'
+          }
+        );
+
       }
    })
   
@@ -196,6 +198,9 @@ export default function EvalPlanCreator({closeFunction}){
 EvalPlanCreator.propTypes = {
   closeFunction: PropTypes.func.isRequired
 };
+
+
+
 
 /*
 date1:"15-01-2022"
