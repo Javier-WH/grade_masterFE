@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useContext, useEffect, useState } from "react"
 import { TeacherPanelContext } from "../../../../../context/teacherPanelContext.jsx"
 import LapseSelector from "./lapseSelector.jsx"
@@ -5,9 +6,8 @@ import InsertEvalPlan from "../../../../../fetch/fetchInsertEvalPlan.js"
 import EvalPlanCalendar from "./evalPlanCalendar.jsx"
 import EvalPlanDesCription from "./evalPlanDescription.jsx"
 import EvalPlanPercent from "./evalPlanPercent.jsx"
-import './evalPlanCreator.css'
 import { Button } from 'primereact/button';
-import PropTypes from "prop-types";
+import './evalPlanCreator.css'
 
 //falta crear la funcion de armar el objeto que se envia a la base de datos y enviarlo
 
@@ -19,7 +19,7 @@ export default function EvalPlanCreator({closeFunction}){
   const [evaluationList, setEvalEuationList] = useState([])
   
 
-  //momentaneamente como una prueba
+ /*
   useEffect(()=>{
     if(idLapse === null){
       return
@@ -80,7 +80,7 @@ export default function EvalPlanCreator({closeFunction}){
     }
       // eslint-disable-next-line react-hooks/exhaustive-deps
   },[idLapse])
-
+*/
 
   const addEval = ()=>{
     const evaluation =  {
@@ -91,15 +91,81 @@ export default function EvalPlanCreator({closeFunction}){
     const list = [...evaluationList]
     list.push(evaluation)
     setEvalEuationList(list)
+  }
+
+  const removeEval = index=>{
+    const list = [...evaluationList]
+    list.splice(index, 1)
+    setEvalEuationList(list)
 
   }
   
  //  console.log(evaluationList)
 
+ const handleInsert = ()=>{
+  const dates = {}
+  const percents = {}
+  const desc = {}
+
+  for (let [index, register] of evaluationList.entries()) {
+    const date = register.date
+    const day = date.getDate().toString().padStart(2, '0');
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const dateString = `${day}-${month}-${year}`;
+    
+    const evaluation = `eval${index + 1}`
+    dates[evaluation] = dateString
+    percents[evaluation] = register.per
+    desc[evaluation] = register.desc
+  }
+  const evalPlanData = {
+    idSubject:  subjectId,
+    idLapse,
+    dates,
+    percents,
+    desc
+  }
+
+  
+  //console.log(newLocalPlan)
+
+   InsertEvalPlan(evalPlanData).then(idEvaluationPlan =>{
+      if(idEvaluationPlan){
+          const newLocalPlan = {
+            idEvaluationPlan,
+            idLapse,
+            idSubject: subjectId
+          }
+
+      
+          for(let i = 1 ; i <= Object.keys(dates).length ; i++ ){
+              newLocalPlan[`date${i}`] = dates[`eval${i}`]
+              newLocalPlan[`desc${i}`] = desc[`eval${i}`]
+              newLocalPlan[`per${i}`] =  ""+percents[`eval${i}`]
+          }
+
+          if(!evalPlanList){
+            setEvalPlanList([newLocalPlan])
+          }else{
+            const list = [...evalPlanList]
+            list.push(newLocalPlan)
+            setEvalPlanList(list)
+            closeFunction();
+          }
+      
+      }else{
+        alert("Ocurrió un error")
+      }
+   })
+  
+
+ }
+
   return <>
     <div id="EPC-container">
       <LapseSelector setIdLapse = {setIdLapse} />
-      <div className="EPC-evaluation-container">
+      <div className="EPC-evaluation-container  EPC-evaluation-container-invisible">
         <span>Fecha</span>
         <span>Descripción</span>
         <span>Porcentaje</span>
@@ -109,16 +175,19 @@ export default function EvalPlanCreator({closeFunction}){
         :
         evaluationList.map((evaluation, i) =>{
           return  <div key={`evaluation${i}`} className="EPC-evaluation-container">
-              <EvalPlanCalendar index = {i} evaluationList = {evaluationList} setEvalEuationList = {setEvalEuationList}/>
-              <EvalPlanDesCription index = {i} evaluationList = {evaluationList} setEvalEuationList = {setEvalEuationList}/>
-              <EvalPlanPercent index = {i} evaluationList = {evaluationList} setEvalEuationList = {setEvalEuationList}/>
+              <EvalPlanCalendar index = {i} evaluationList = {evaluationList} setEvalEuationList = {setEvalEuationList}  className="EPC-evaluation-calendar" />
+              <EvalPlanDesCription index = {i} evaluationList = {evaluationList} setEvalEuationList = {setEvalEuationList}  className="EPC-evaluation-description"/>
+              <EvalPlanPercent index = {i} evaluationList = {evaluationList} setEvalEuationList = {setEvalEuationList}  className="EPC-evaluation-percent"/>
+              <div className="EPC-evaluation-deleteButton">   
+                <Button icon="pi pi-trash" text severity="danger" aria-label="Cancel" onClick={()=> removeEval(i)} />
+              </div>
           </div>
         })
       }
       <Button icon="pi pi-plus" rounded severity="success" aria-label="Search" label="Agregar Evaluación" onClick={addEval}/>
       <div id="EPC-button-container">
         <Button label="Cancelar" severity="secondary" rounded onClick={closeFunction} />
-        <Button label="Crear" rounded />
+        <Button label="Crear" rounded onClick={handleInsert}/>
       </div>
     </div>
   </>

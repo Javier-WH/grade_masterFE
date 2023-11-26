@@ -1,23 +1,16 @@
 
-import { useState, useEffect} from "react";
 import { InputNumber } from 'primereact/inputnumber';
 import PropTypes from "prop-types";
 
 export default function EvalPlanPercent({index, evaluationList, setEvalEuationList}) {
-  const [value, setValue] = useState("");
-
-  useEffect(()=>{
-    if(!value){
-      return
-    }
+ 
+  const handleValue = val =>{
     const list = [...evaluationList]
-    list[index].per = value
+    list[index].per = val
     setEvalEuationList(list)
+  }
 
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[value])
-
-  return <InputNumber inputId="evalPlan-percent" value={value} onValueChange={(e) => setValue(e.value)} suffix="%" />
+  return <InputNumber inputId="evalPlan-percent" value={evaluationList[index].per} onValueChange={(e) => handleValue(e.value)} suffix="%" inputStyle={{width:'100%'}}/>
 }
 
 EvalPlanPercent.propTypes = {

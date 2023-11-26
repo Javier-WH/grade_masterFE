@@ -16,9 +16,81 @@
 
 .EPC-evaluation-container{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 4fr 8fr 2fr 1fr;
   align-items: center;
   text-align: center;
   justify-content: center;
   width: 100%;
+  gap: 1em;
+ 
+}
+
+@media (max-width: 500px) {
+
+  .EPC-evaluation-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    row-gap: 2em;
+    margin-top: 2em;
+    border: 1px solid var(--surface-200);
+    padding: 2em;
+    border-radius: 5%;
+  }
+
+
+  .EPC-evaluation-deleteButton {
+    position: absolute;
+    top: -.2em;
+    right: 0;
+  }
+
+  .EPC-evaluation-container .p-calendar {
+    position: relative;
+  }
+  .EPC-evaluation-container .p-calendar::after {
+    position: absolute;
+    width: 100%;
+    content: "Fecha";
+    color: var(--text-color-secondary);
+    font-size: .8em;
+    top: -1.6em;
+    left: 0;
+    text-align: left;
+  }
+
+  .EPC-evaluation-container .p-autocomplete {
+    position: relative;
+  }
+
+   .EPC-evaluation-container .p-autocomplete::after {
+    position: absolute;
+    width: 100%;
+    content: "Descripción";
+    color: var(--text-color-secondary);
+    font-size: .8em;
+    top: -1.6em;
+    left: 0;
+    text-align: left;
+  }
+
+  .EPC-evaluation-container .p-inputnumber {
+    position: relative;
+  }
+
+  .EPC-evaluation-container .p-inputnumber::after {
+    position: absolute;
+    width: 100%;
+    content: "Porcentage";
+    color: var(--text-color-secondary);
+    font-size: .8em;
+    top: -1.6em;
+    left: 0;
+    text-align: left;
+  }
+
+  .EPC-evaluation-container-invisible {
+    display: none ;
+  }
 }

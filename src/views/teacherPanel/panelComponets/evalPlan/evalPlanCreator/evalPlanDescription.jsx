@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { AutoComplete } from "primereact/autocomplete";
 import PropTypes from "prop-types";
 
 export default function EvalPlanDesCription({index, evaluationList, setEvalEuationList}) {
-    const [value, setValue] = useState('');
+
     const [items, setItems] = useState([]);
     
     const evaluations = [
@@ -37,23 +37,18 @@ export default function EvalPlanDesCription({index, evaluationList, setEvalEuati
         }));
     }
 
-    useEffect(()=>{
-      if(!value){
-        return
-      }
+
+
+    const handleValue = val =>{
       const list = [...evaluationList]
-      list[index].desc = value
+      list[index].desc = val
       setEvalEuationList(list)
 
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[value])
-
+    }
     
-    return (
-        <div className="card flex justify-content-center">
-            <AutoComplete value={value} suggestions={items} completeMethod={search} onChange={(e) => setValue(e.value)} />
-        </div>
-    )
+    return <AutoComplete value={evaluationList[index].desc} suggestions={items} completeMethod={search} onChange={(e) => handleValue(e.value)} inputStyle={{width:'100%'}}/>
+    
+ 
 }
 
 EvalPlanDesCription.propTypes = {

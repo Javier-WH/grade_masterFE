@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TeacherPanelContext } from '../../../context/teacherPanelContext.jsx';
 import ShowStudentList from './menuComponents/list.jsx';
 import ShowSave from './menuComponents/save/showSave.jsx';
+import ShowEPC from './evalPlan/evalPlanCreator/showEvalPlanCreator.jsx';
 import { useContext, useState } from 'react';
 import { ConfirmDialogContext } from '../../../context/confirmDialogoContext.jsx';
 import { ToastContext } from '../../../context/toastContext.jsx';
@@ -13,6 +14,7 @@ export default function TeacherPanelMenu() {
     
     const [showList, setShowList] = useState(false)
     const [showSave, setShowSave] = useState(false)
+      const [showEPC, setShowEPC] = useState(false) 
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
      const {showToast} = useContext(ToastContext)
 
@@ -70,7 +72,8 @@ export default function TeacherPanelMenu() {
                       items: [
                         {
                             label: 'Agregar Plan',
-                            icon: 'pi pi-fw pi-calendar-plus'
+                            icon: 'pi pi-fw pi-calendar-plus',
+                            command: ()=> setShowEPC(true)
                         },
                            {
                             label: 'Editar Plan',
@@ -176,6 +179,7 @@ export default function TeacherPanelMenu() {
             <Menubar model={items} />
             <ShowStudentList showList = {showList} setShowList={setShowList}/>
             <ShowSave showSave = {showSave} setShowSave = { setShowSave} />
+            <ShowEPC showEPC= {showEPC} setShowEPC= {setShowEPC}/>
         </div>
     )
 }

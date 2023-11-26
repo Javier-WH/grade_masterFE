@@ -16,7 +16,7 @@ export default function EvalPlanContainer (){
   const EvalPlan = useTPEvalPlan()
   const lapeName = useTPlapseName()
   const defGrade = useTPtotal({EvalPlan})
-  const [showEPC, setShowEPC] = useState(true) 
+  const [showEPC, setShowEPC] = useState(false) 
 
 
   const nextEvalPlan = () =>{
