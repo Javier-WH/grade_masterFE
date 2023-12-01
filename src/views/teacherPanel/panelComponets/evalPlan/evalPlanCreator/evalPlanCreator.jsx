@@ -20,6 +20,7 @@ export default function EvalPlanCreator({closeFunction}){
   const [evaluationList, setEvalEuationList] = useState([])
   const {showToast} = useContext(ToastContext)
 
+
   const addEval = ()=>{
     const evaluation =  {
       date: "",
@@ -161,7 +162,6 @@ export default function EvalPlanCreator({closeFunction}){
       }
    })
   
-
  }
 
   return <>
