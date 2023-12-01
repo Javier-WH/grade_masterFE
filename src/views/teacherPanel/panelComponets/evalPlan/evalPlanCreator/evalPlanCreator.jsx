@@ -114,6 +114,7 @@ export default function EvalPlanCreator({closeFunction}){
     percents[evaluation] = percent
     desc[evaluation] = description
   }
+  
   const evalPlanData = {
     idSubject:  subjectId,
     idLapse,

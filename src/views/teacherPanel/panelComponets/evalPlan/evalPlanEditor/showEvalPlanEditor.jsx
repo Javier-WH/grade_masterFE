@@ -23,7 +23,7 @@ export default function ShowEPE({showEPE, setShowEPE}){
       return  <NoEvalPlanFound setShowEPE ={setShowEPE}/>
     }
     
-    return  <EvalPlanEditor/>
+    return  <EvalPlanEditor closeFunction ={closeFunction}/>
   }
 
   return<>

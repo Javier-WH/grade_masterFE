@@ -12,7 +12,9 @@ export default function useTPEvalPlan(){
     if(!evalPlanList){
       return 
     }
+
     const evalPlan = evalPlanList[activeEvalPlan]
+  //////////////////////////////////////////////////////////////////////////////////
     const lapseid = evalPlan.idLapse
     const dates = [];
     const descs = [];
