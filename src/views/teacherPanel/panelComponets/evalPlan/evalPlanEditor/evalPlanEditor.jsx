@@ -77,7 +77,7 @@ export default function EvalPlanEditor(){
 
       {
         selectedPlan ? 
-          <div id="EPE-evaluation-container">
+          <div id="EPE-evaluation-container" className="EPC-evaluation-container EPE-row-gap EPC-evaluation-container-invisible">
             <span>Fecha</span>
             <span>Descripción</span>
             <span>Porcentaje</span>
@@ -89,10 +89,10 @@ export default function EvalPlanEditor(){
    
       {
         evaluationList.map((evaluation, i)=>{
-          return <div key={"eval" + i} id="EPE-evaluation-container">
-            <EvalPlanCalendar index = {i} evaluationList={evaluationList} setEvalEuationList={setEvalEuationList}/>
-            <EvalPlanDesCription index = {i} evaluationList={evaluationList} setEvalEuationList={setEvalEuationList}/>
-            <EvalPlanPercent index = {i} evaluationList={evaluationList} setEvalEuationList={setEvalEuationList} />
+          return <div key={"eval" + i}  className="EPC-evaluation-container EPE-row-gap">
+            <EvalPlanCalendar index = {i} evaluationList={evaluationList} setEvalEuationList={setEvalEuationList} className="EPC-evaluation-calendar "/>
+            <EvalPlanDesCription index = {i} evaluationList={evaluationList} setEvalEuationList={setEvalEuationList} className="EPC-evaluation-description"/>
+            <EvalPlanPercent index = {i} evaluationList={evaluationList} setEvalEuationList={setEvalEuationList} className="EPC-evaluation-percent" />
                <div className="EPC-evaluation-deleteButton">   
                 <Button icon="pi pi-trash" text severity="danger" aria-label="Cancel" onClick={()=> removeEval(i)} />
               </div>

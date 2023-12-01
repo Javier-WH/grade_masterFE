@@ -2,17 +2,8 @@
   color: var(--text-color-secondary);
   font-size: .9em;
 }
-
-#EPE-evaluation-container{
- display: grid;
-  grid-template-columns: 4fr 8fr 2fr 1fr;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  width: 100%;
-  gap: 1em;
-  margin-top: 1em;
-  color: var(--text-color-secondary);
+.EPE-row-gap {
+ margin-top: 1em;
 }
 
 #EPE-evalplan-container{
@@ -21,5 +12,9 @@
 #EPE-updateButton-container{
   position: absolute;
   right: 0;
-  bottom: -5.1em;
+  bottom: -4.45em;
+}
+
+#EPE-cancelButton{
+  margin-top: 2em;
 }

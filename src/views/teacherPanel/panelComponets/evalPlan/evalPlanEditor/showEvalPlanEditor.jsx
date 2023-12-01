@@ -31,9 +31,8 @@ export default function ShowEPE({showEPE, setShowEPE}){
         {
           handleContent()
         }
-        <br />
-        <br />
-        <Button label="Cancelar" severity="danger"  onClick={closeFunction}/>
+     
+        <Button label="Cancelar" severity="danger"  onClick={closeFunction} id="EPE-cancelButton"/>
       </Modal>
   </>
 
