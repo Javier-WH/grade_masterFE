@@ -1,0 +1,18 @@
+#TP-teacherdata-container{
+  width: 100%;
+  display: flex;
+  padding: 2em;
+  flex-wrap: wrap;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+}
+.TP-teacherDataInput{
+  max-width: 15em;
+  min-width: 10em;
+}
+#TP-teacherdata-buttonContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+}

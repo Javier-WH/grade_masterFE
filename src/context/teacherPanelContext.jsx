@@ -9,7 +9,7 @@ import useSeccions from "../hooks/useSeccions.jsx"
 import useEvalPlan from "../hooks/useEvalPlan.jsx"
 import useTeacherSubjects from "../hooks/useTeacherSubjects.jsx"
 import useSeccionBySubjectId from "../hooks/useSeccionBySubjectId.jsx"
-
+import useTeacherData from "../hooks/useTeacherData.jsx"
 
 export const TeacherPanelContext = createContext();
 
@@ -30,6 +30,10 @@ export function TeacherPanelContextProvider(props) {
   const [evalPlanList, setEvalPlanList] = useEvalPlan({idSubject: subjectId})
   const [activeEvalPlan, setActiveEvalPlan] = useState(0)
   const [gradesToSave, setGradesToSave] = useState([]);
+  const [teacherData, setTeacherData] = useTeacherData();
+
+
+
 
   function addGradesToSave(grade){
 
@@ -75,7 +79,9 @@ export function TeacherPanelContextProvider(props) {
     setActiveEvalPlan,
     gradesToSave,
     addGradesToSave,
-    setGradesToSave
+    setGradesToSave,
+    teacherData, 
+    setTeacherData
   }
 
   return (
