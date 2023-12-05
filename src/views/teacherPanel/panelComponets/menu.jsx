@@ -7,9 +7,12 @@ import ShowEPC from './evalPlan/evalPlanCreator/showEvalPlanCreator.jsx';
 import ShowEPE from './evalPlan/evalPlanEditor/showEvalPlanEditor.jsx';
 import ShowTeacherData from './menuComponents/teacherData.jsx/showTeacherData.jsx';
 import ShowTeacherPassword from './menuComponents/teacherPassword/showTeacherPassword.jsx';
-import { useContext, useState } from 'react';
+import { useContext, useState, useRef } from 'react';
 import { ConfirmDialogContext } from '../../../context/confirmDialogoContext.jsx';
 import { ToastContext } from '../../../context/toastContext.jsx';
+import { useReactToPrint } from 'react-to-print';
+import PrintStudentList from './print/printStudentList.jsx';
+import "./menu.css"
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
@@ -23,6 +26,11 @@ export default function TeacherPanelMenu() {
     const [showTeacherPass, setShowTeacherPass] = useState(false)
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
     const {showToast} = useContext(ToastContext)
+    
+    const componentRef = useRef();
+    const handlePrint = useReactToPrint({
+      content: () => componentRef.current,
+    });
 
 
     const askToSave = () => {
@@ -112,7 +120,8 @@ export default function TeacherPanelMenu() {
             items: [
                 {
                     label: 'Imprimir planilla',
-                    icon: 'pi pi-fw pi-print'
+                    icon: 'pi pi-fw pi-print',
+                    command: handlePrint
                 },
                 {
                     label: 'Imprimir planilla vacía',
@@ -183,6 +192,7 @@ export default function TeacherPanelMenu() {
 
 
 
+
     return (
         <div className="card" id='TP-menu'>
             <Menubar model={items} />
@@ -192,6 +202,11 @@ export default function TeacherPanelMenu() {
             <ShowEPE showEPE ={showEPE} setShowEPE ={setShowEPE}/>
             <ShowTeacherData showTeacherData = {showTeacherData} setShowTeacherData = {setShowTeacherData}/>
             <ShowTeacherPassword showTeacherPassword = {showTeacherPass} setShowTeacherPassword={setShowTeacherPass} />
+            <div id='Menu-print-hide'>
+                <div id='Menu-Print-nomina' ref={componentRef}>
+                    <PrintStudentList/>
+                </div>
+            </div>
         </div>
     )
 }
