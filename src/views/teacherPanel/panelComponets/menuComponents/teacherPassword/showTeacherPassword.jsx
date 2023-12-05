@@ -35,6 +35,17 @@ export default function ShowTeacherPassword({showTeacherPassword, setShowTeacher
         return
       }
 
+      if(!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\S]{8,}$/.test(newPassword))){
+        showToast(
+          {
+            severity : 'error',
+            summary : 'Error',
+            detail : 'La contraseña debe tener al menos 8 caracteres e incluir al menos una letra minúscula, una letra mayúscula y un dígito'
+          }
+        );
+        return
+      }
+
       if(newPassword !== newPassword2){
         showToast(
           {
