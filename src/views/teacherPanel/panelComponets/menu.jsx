@@ -6,6 +6,7 @@ import ShowSave from './menuComponents/save/showSave.jsx';
 import ShowEPC from './evalPlan/evalPlanCreator/showEvalPlanCreator.jsx';
 import ShowEPE from './evalPlan/evalPlanEditor/showEvalPlanEditor.jsx';
 import ShowTeacherData from './menuComponents/teacherData.jsx/showTeacherData.jsx';
+import ShowTeacherPassword from './menuComponents/teacherPassword/showTeacherPassword.jsx';
 import { useContext, useState } from 'react';
 import { ConfirmDialogContext } from '../../../context/confirmDialogoContext.jsx';
 import { ToastContext } from '../../../context/toastContext.jsx';
@@ -19,6 +20,7 @@ export default function TeacherPanelMenu() {
     const [showEPC, setShowEPC] = useState(false)
     const [showEPE, setShowEPE] = useState(false) 
     const [showTeacherData, setShowTeacherData] = useState(false)
+    const [showTeacherPass, setShowTeacherPass] = useState(false)
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
     const {showToast} = useContext(ToastContext)
 
@@ -157,6 +159,7 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Cambiar contraseña',
                     icon: 'pi pi-fw pi-key',
+                    command: ()=> setShowTeacherPass(true)
 
                 }
             ]
@@ -188,6 +191,7 @@ export default function TeacherPanelMenu() {
             <ShowEPC showEPC= {showEPC} setShowEPC= {setShowEPC}/>
             <ShowEPE showEPE ={showEPE} setShowEPE ={setShowEPE}/>
             <ShowTeacherData showTeacherData = {showTeacherData} setShowTeacherData = {setShowTeacherData}/>
+            <ShowTeacherPassword showTeacherPassword = {showTeacherPass} setShowTeacherPassword={setShowTeacherPass} />
         </div>
     )
 }
