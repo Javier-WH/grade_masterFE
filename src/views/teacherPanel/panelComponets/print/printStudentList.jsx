@@ -1,15 +1,20 @@
-import { useContext, useEffect, useState } from "react"
-import { TeacherPanelContext } from "../../../../context/teacherPanelContext.jsx"
+import PropTypes from "prop-types";
+import { useContext, useEffect, useState } from 'react'
+import { TeacherPanelContext } from '../../../../context/teacherPanelContext.jsx'
+import { useTPlapseName } from '../evalPlan/evalPlanHooks/useTPlapseName.jsx'
+import './printStudentList.css'
+
 
 export default function PrintStudentList(){
-
+     
   const {activeSubject, studentList, evalPlanList, activeEvalPlan, teacherData} = useContext(TeacherPanelContext)
 
   const [lapseid, setLapseid] = useState()
   const [stdList, setStdList] = useState([])
+  const [percents, setPercents] = useState([])
 
+  const lapseName = useTPlapseName()
 
-  
   useEffect(()=>{
     if(!evalPlanList){
       return
@@ -21,47 +26,53 @@ export default function PrintStudentList(){
 
 
   useEffect(()=>{
-    if(!studentList){
+    if(!studentList || !evalPlanList){
+      setStdList([])
       return
     }
 
     const newStdList = studentList.map(student =>{
-
         const {
           studentCi:ci,
           studentName,
           studentLastName,
           grades
         } = student
-
-        const evals = grades.filter(lapse => lapse.lapseid === lapseid)[0]?.evals
-
+      
         const data =  evalPlanList[activeEvalPlan]
-        const dates = [];
-        const desc = [];
-        const per = [];
+        const dates = []
+        const desc = []
+        const per = []
 
         for (const key in data) {
-          if (key.startsWith("date")) {
-            dates.push(data[key]);
+          if (key.startsWith('date')) {
+            dates.push(data[key])
           }
-          if (key.startsWith("desc")) {
-            desc.push(data[key]);
+          if (key.startsWith('desc')) {
+            desc.push(data[key])
           }
-          if (key.startsWith("per")) {
-            per.push(data[key]);
+          if (key.startsWith('per')) {
+            per.push(data[key])
           }
         }
 
         const gradelist = {}
-        let conunter = 1
-        for (const key in evals) {
-          if (key.startsWith("eval") && conunter < per.length + 1) {
-            gradelist['eval' + conunter++] = evals[key]
+        //el if previene un bug cuando un alumno tiene grades = undefined
+        if(grades){
+          const evals = grades.filter(lapse => lapse.lapseid === lapseid)[0]?.evals
+
+          if(evals){
+            for(let i = 1 ; i <= per.length ; i++){
+             gradelist['eval' + i] = evals['eval' + i] ? evals['eval' + i] : ""
+            }
+          }else{ // esto agrega celdas vacías si no tiene notas
+            for(let i = 1 ; i <= per.length ; i++){
+              gradelist['eval' + i] = ""
+            }
           }
         }
-
-    
+        
+        setPercents(per)
        return {
           ci,
           studentLastName,
@@ -70,29 +81,46 @@ export default function PrintStudentList(){
         }
       })
 
-    
       setStdList(newStdList)
 
  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[studentList, activeSubject, lapseid])
+  },[studentList, activeSubject, lapseid, evalPlanList])
 
-  //console.log(stdList)
+
+  if(!stdList || stdList.length === 0){
+    return <>
+        <h1 id='Print-Students-seccion'>{activeSubject}</h1>
+        <h1 id='Print-Students-teacherName'>{`Profesor: ${teacherData.name} ${teacherData.lastName} C.I. ${teacherData.ci}`}</h1> 
+        <h1 id='Print-Students-lapseName'>{lapseName}</h1>
+        <h1 id='Print-Students-seccion'>No se encontró un plan de evaluación para esta materia</h1>
+    </>
+  }
+
 
   return <>
-
-    <h1 id="Print-Students-seccion">{activeSubject}</h1>
-    <h1 id="Print-Students-teacherName">{`Profesor: ${teacherData.name} ${teacherData.lastName} C.I. ${teacherData.ci}`}</h1>
-      
+    <h1 id='Print-Students-seccion'>{activeSubject}</h1>
+    <h1 id='Print-Students-teacherName'>{`Profesor: ${teacherData.name} ${teacherData.lastName} C.I. ${teacherData.ci}`}</h1> 
+    <h1 id='Print-Students-lapseName'>{lapseName}</h1>
+    <div className='Print-Student-list Print-Student-list-headers'>
+      <span>N°</span>
+      <span>C.I.</span>
+      <span>Apellidos</span>
+      <span>Nombres</span>
+      {
+        percents.map((p, i)=> <span key={`pName${i}`}>{`${p}%`}</span>)
+      }
+    </div>
     {
       stdList.map((student, i) => {
-        return <div key={`std${i}`}>
+        return <div key={`std${i}`} className='Print-Student-list'>
+          <span>{i+1}</span>
           <span>{student.ci}</span>
           <span>{student.studentLastName}</span>
           <span>{student.studentName}</span>
           {
             Object.keys(student).map((grade, j) => {
-              if( grade.startsWith("eval")){
-                return <span key={`grade${j}`}>{student[grade]}</span>
+              if( grade.startsWith('eval')){
+                return <span key={`grade${j}`} className='Print-Student-grade'>{student[grade]}</span>
               }
               return null
             })
@@ -103,3 +131,7 @@ export default function PrintStudentList(){
   </>
 
 }
+
+PrintStudentList.propTypes = {
+  full: PropTypes.bool
+};

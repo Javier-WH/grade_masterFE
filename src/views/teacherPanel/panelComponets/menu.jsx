@@ -26,7 +26,7 @@ export default function TeacherPanelMenu() {
     const [showTeacherPass, setShowTeacherPass] = useState(false)
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
     const {showToast} = useContext(ToastContext)
-    
+
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
@@ -109,7 +109,7 @@ export default function TeacherPanelMenu() {
                     icon: 'pi pi-fw pi-power-off',
                     command: ()=>{
                        sessionStorage.clear();
-                        navigate("/");
+                    navigate("/");
                     }
                 }
             ]
@@ -121,11 +121,16 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Imprimir planilla',
                     icon: 'pi pi-fw pi-print',
-                    command: handlePrint
+                    command: ()=>{
+                        handlePrint();
+                    } 
                 },
                 {
                     label: 'Imprimir planilla vacía',
-                    icon: 'pi pi-fw pi-print'
+                    icon: 'pi pi-fw pi-print',
+                    command: ()=>{
+                        handlePrint();
+                    } 
                 },
                 {
                     label: 'Generar PDF',
@@ -204,7 +209,7 @@ export default function TeacherPanelMenu() {
             <ShowTeacherPassword showTeacherPassword = {showTeacherPass} setShowTeacherPassword={setShowTeacherPass} />
             <div id='Menu-print-hide'>
                 <div id='Menu-Print-nomina' ref={componentRef}>
-                    <PrintStudentList/>
+                    <PrintStudentList />
                 </div>
             </div>
         </div>

@@ -12,11 +12,11 @@ export function useTPlapseName(){
       return
     }
 
-    const idLapse = evalPlanList[activeEvalPlan].idLapse
+    const idLapse = evalPlanList[activeEvalPlan]?.idLapse
     
     const lapseData = lapseNames.filter(lapse => lapse.id === idLapse)
 
-    setLapseName(lapseData[0].name)
+    setLapseName(lapseData[0]?.name)
 
 
   },[lapseNames, evalPlanList, activeEvalPlan])
