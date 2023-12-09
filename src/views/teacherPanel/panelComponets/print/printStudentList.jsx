@@ -70,13 +70,21 @@ export default function PrintStudentList(){
             }
           }
         }
+
+        
+        let acc = 0
+
+        for(let i = 0 ; i < per.length ; i++){
+          acc += (per[i]*gradelist[`eval${i+1}`])/100
+        }
         
         setPercents(per)
        return {
           ci,
           studentLastName,
           studentName,
-          ...gradelist
+          ...gradelist,
+          acc: acc > 0 ? acc : "" 
         }
       })
 
@@ -108,6 +116,7 @@ export default function PrintStudentList(){
       {
         percents.map((p, i)=> <span key={`pName${i}`}>{`${p}%`}</span>)
       }
+      <span>def</span>
     </div>
     {
       stdList.map((student, i) => {
@@ -124,6 +133,7 @@ export default function PrintStudentList(){
               return null
             })
           }
+          <span>{student.acc}</span>
         </div>
       })
     }

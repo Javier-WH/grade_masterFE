@@ -19,7 +19,7 @@
 
 .Print-Student-list{
   display: grid;
-  grid-template-columns: 1fr 3fr 4fr 4fr repeat(10, 1fr);
+  grid-template-columns: 2em 6em 8em 8em repeat(10, 2.5em) 2.5em;
   gap: 0;
   position: relative;
 }
@@ -28,12 +28,14 @@
   border: 1px solid black;
   margin: 0;
   padding: 0.1em;
+  width: 100%;
 
 }
 .Print-Student-list-headers span {
   font-weight: 600;
   font-size: 0.8em;
   text-align: center;
+  width: 100%;
 }
 .Print-Student-grade{
   text-align: center;

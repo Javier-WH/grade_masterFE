@@ -133,7 +133,7 @@ export default function TeacherPanelMenu() {
             ]
         },
         {
-            label: 'Editar',
+            label: 'Reporte',
             icon: 'pi pi-fw pi-paperclip',
             items: [
                 {
