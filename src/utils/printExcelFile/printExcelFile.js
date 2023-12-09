@@ -3,6 +3,11 @@ let percents = []
 
 export default function printExcelFile({ studentList, evalPlanList, activeEvalPlan, teacherData, activeSubject }){
 
+  if(!evalPlanList){
+    return
+  }
+
+
   const teacerName = `Profesor: ${teacherData.lastName} ${teacherData.name}`
   const lapseid = evalPlanList[activeEvalPlan]?.idLapse
   let lapseName = ""
@@ -92,8 +97,12 @@ export default function printExcelFile({ studentList, evalPlanList, activeEvalPl
     ['N°', 'C.I.', 'Nombres', 'Apellidos', ... percents, "acc/def"],
     ...students
   ]
-  //console.log(printObject)
-  generateExelFile(printObject)
+
+  generateExelFile(
+    {
+      printArray: printObject,
+      activeSubject
+    })
   
 }
 

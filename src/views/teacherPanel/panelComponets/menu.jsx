@@ -28,7 +28,7 @@ export default function TeacherPanelMenu() {
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
     const {showToast} = useContext(ToastContext)
 
-
+   
     const printRef = useRef();
     const handlePrint = useReactToPrint({
       content: () => printRef.current,
@@ -39,7 +39,17 @@ export default function TeacherPanelMenu() {
       content: () => printEmpyRef.current,
     });
 
- 
+    const handleCreateExcel = ()=>{
+        if(!evalPlanList){
+            showToast({
+                severity : 'error',
+                summary : 'Error',
+                detail : 'No se ha encontrado un plan de evaluación'
+            });
+            return
+        }
+        PrintExcelFile({studentList, evalPlanList, activeEvalPlan, teacherData, activeSubject})
+    }
 
     const askToSave = () => {
          showConfirmDialog({
@@ -137,13 +147,9 @@ export default function TeacherPanelMenu() {
                     command: handleEmpyPrint
                 },
                 {
-                    label: 'Generar PDF',
-                    icon: 'pi pi-fw pi-file-pdf'
-                },
-                {
                     label: 'Generar Excel',
                     icon: 'pi pi-fw pi-file-excel',
-                    command: ()=> PrintExcelFile({studentList, evalPlanList, activeEvalPlan, teacherData, activeSubject})
+                    command: handleCreateExcel
                 },
 
             ]
