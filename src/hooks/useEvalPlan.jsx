@@ -6,6 +6,9 @@ export default function useEvalPlan({idSubject}) {
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
+    if(!idSubject){
+      return
+    }
 
     const fetchData = async () => {
       try {

@@ -32,7 +32,7 @@ export function TeacherPanelContextProvider(props) {
   const [gradesToSave, setGradesToSave] = useState([]);
   const [teacherData, setTeacherData] = useTeacherData();
 
-
+  
 
 
   function addGradesToSave(grade){
@@ -53,7 +53,7 @@ export function TeacherPanelContextProvider(props) {
   }
 
 
-  //console.log(studentList[activeStudent])
+ // console.log(activeSubject)
 
   const values ={
     academicYears,

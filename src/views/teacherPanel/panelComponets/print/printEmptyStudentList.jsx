@@ -4,7 +4,7 @@ import { useTPlapseName } from '../evalPlan/evalPlanHooks/useTPlapseName.jsx'
 import './printStudentList.css'
 
 
-export default function PrintStudentList(){
+export default function PrintEmpyStudentList(){
      
   const {activeSubject, studentList, evalPlanList, activeEvalPlan, teacherData} = useContext(TeacherPanelContext)
 
@@ -34,8 +34,7 @@ export default function PrintStudentList(){
         const {
           studentCi:ci,
           studentName,
-          studentLastName,
-          grades
+          studentLastName
         } = student
       
         const data =  evalPlanList[activeEvalPlan]
@@ -56,22 +55,11 @@ export default function PrintStudentList(){
         }
 
         const gradelist = {}
-        //el if previene un bug cuando un alumno tiene grades = undefined
-        if(grades){
-          const evals = grades.filter(lapse => lapse.lapseid === lapseid)[0]?.evals
-
-          if(evals){
-            for(let i = 1 ; i <= per.length ; i++){
-             gradelist['eval' + i] = evals['eval' + i] ? evals['eval' + i] : ""
-            }
-          }else{ // esto agrega celdas vacías si no tiene notas
-            for(let i = 1 ; i <= per.length ; i++){
-              gradelist['eval' + i] = ""
-            }
-          }
+        for(let i = 1 ; i <= per.length ; i++){
+          gradelist['eval' + i] = ""
         }
-        
-        setPercents(per)
+          
+       setPercents(per)
        return {
           ci,
           studentLastName,

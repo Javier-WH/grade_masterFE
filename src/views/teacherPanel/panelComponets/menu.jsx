@@ -12,12 +12,13 @@ import { ConfirmDialogContext } from '../../../context/confirmDialogoContext.jsx
 import { ToastContext } from '../../../context/toastContext.jsx';
 import { useReactToPrint } from 'react-to-print';
 import PrintStudentList from './print/printStudentList.jsx';
+import PrintEmpyStudentList from './print/printEmptyStudentList.jsx';
+import PrintExcelFile from '../../../utils/printExcelFile/printExcelFile.js';
 import "./menu.css"
 
 export default function TeacherPanelMenu() {
     const navigate = useNavigate()
-    const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent, gradesToSave, setGradesToSave} = useContext(TeacherPanelContext)
-    
+    const { teacherSubjects, setSubjectId, setActiveSubject, setActiveStudent, gradesToSave, setGradesToSave, studentList, evalPlanList, activeEvalPlan, teacherData, activeSubject} = useContext(TeacherPanelContext)
     const [showList, setShowList] = useState(false)
     const [showSave, setShowSave] = useState(false)
     const [showEPC, setShowEPC] = useState(false)
@@ -27,11 +28,18 @@ export default function TeacherPanelMenu() {
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
     const {showToast} = useContext(ToastContext)
 
-    const componentRef = useRef();
+
+    const printRef = useRef();
     const handlePrint = useReactToPrint({
-      content: () => componentRef.current,
+      content: () => printRef.current,
     });
 
+    const printEmpyRef = useRef();
+    const handleEmpyPrint = useReactToPrint({
+      content: () => printEmpyRef.current,
+    });
+
+ 
 
     const askToSave = () => {
          showConfirmDialog({
@@ -121,16 +129,12 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Imprimir planilla',
                     icon: 'pi pi-fw pi-print',
-                    command: ()=>{
-                        handlePrint();
-                    } 
+                    command: handlePrint
                 },
                 {
                     label: 'Imprimir planilla vacía',
                     icon: 'pi pi-fw pi-print',
-                    command: ()=>{
-                        handlePrint();
-                    } 
+                    command: handleEmpyPrint
                 },
                 {
                     label: 'Generar PDF',
@@ -138,7 +142,8 @@ export default function TeacherPanelMenu() {
                 },
                 {
                     label: 'Generar Excel',
-                    icon: 'pi pi-fw pi-file-excel'
+                    icon: 'pi pi-fw pi-file-excel',
+                    command: ()=> PrintExcelFile({studentList, evalPlanList, activeEvalPlan, teacherData, activeSubject})
                 },
 
             ]
@@ -196,8 +201,6 @@ export default function TeacherPanelMenu() {
     ];
 
 
-
-
     return (
         <div className="card" id='TP-menu'>
             <Menubar model={items} />
@@ -207,9 +210,14 @@ export default function TeacherPanelMenu() {
             <ShowEPE showEPE ={showEPE} setShowEPE ={setShowEPE}/>
             <ShowTeacherData showTeacherData = {showTeacherData} setShowTeacherData = {setShowTeacherData}/>
             <ShowTeacherPassword showTeacherPassword = {showTeacherPass} setShowTeacherPassword={setShowTeacherPass} />
-            <div id='Menu-print-hide'>
-                <div id='Menu-Print-nomina' ref={componentRef}>
+            <div className='Menu-print-hide'>
+                <div className='Menu-Print-nomina' ref={printRef}>
                     <PrintStudentList />
+                </div>
+            </div>
+            <div className='Menu-print-hide'>
+                <div className='Menu-Print-nomina' ref={printEmpyRef}>
+                    <PrintEmpyStudentList/>
                 </div>
             </div>
         </div>
