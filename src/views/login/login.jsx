@@ -57,7 +57,7 @@ export default function Login(){
       <div className='login-container'>
         <UserInput userValue= {userValue} setUserValue={setUserValue}/>
         <BasicPassword passValue ={passValue} setPassValue={setPassValue}/>
-        <Button label='Ingresar' icon='pi pi-reply' onClick={handleLogin}/>
+        <Button label= {loading ? 'Espere...' : 'Ingresar'} severity={loading ? 'secondary' : ''} icon={loading ? 'pi pi-spin pi-spinner' : 'pi pi-reply'} onClick={handleLogin}/>
         <div id='passRecovery-container'>
           <span className ='passRecovery-text'>Olvidé mi contraseña</span>
           <span className ='passRecovery-text'>Registrarse</span>
