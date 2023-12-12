@@ -16,7 +16,7 @@ export default function Eval({percent, desc, grade, date, position}) {
       return
     }
 
-    const input = e.target.value 
+    let input = e.target.value
 
 
     const list = [...studentList]

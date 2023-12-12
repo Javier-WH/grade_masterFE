@@ -166,7 +166,7 @@ export default function EvalPlanEditor({closeFunction}){
     }
 
     //console.log(newLocalPlan)
-
+    console.log(evalPlanData)
      InsertEvalPlan(evalPlanData).then(idEvaluationPlan =>{
         if(idEvaluationPlan){
             const newLocalPlan = {

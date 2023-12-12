@@ -19,7 +19,7 @@ export default function useTPEvalPlan(){
     const dates = [];
     const descs = [];
     const pers = [];
-    
+ 
 
     for (const key in evalPlan) {
       if (key.startsWith("date")) {
@@ -33,7 +33,7 @@ export default function useTPEvalPlan(){
 
 
     const studentGrades = studentList[activeStudent].grades
-   
+
 
     const filteredGrades = studentGrades ? studentGrades.filter(lapse => lapse.lapseid === lapseid) : []
     const evals = filteredGrades.length > 0 ? filteredGrades[0].evals : null;

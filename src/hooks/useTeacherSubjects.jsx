@@ -6,7 +6,7 @@ export default function useTeacherSubjects() {
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
-
+    setResponse('loading')
     const fetchData = async () => {
       try {
         let page = 1

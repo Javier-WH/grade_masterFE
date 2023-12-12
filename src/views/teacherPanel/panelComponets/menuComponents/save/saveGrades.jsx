@@ -36,7 +36,7 @@ export default function SaveGrades({closeFunction}){
         summary : 'Exito',
         detail : 'las notas fueron guardadas correctament'
       });
-      setGradesToSave([])
+  
     }
     closeFunction()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -62,15 +62,17 @@ export default function SaveGrades({closeFunction}){
           const clampedProgress = currentProgress > 100 ? 100 : currentProgress;
           setProgress(clampedProgress);
           setError('success')
+          setGradesToSave([])
         } else {
           setError('error')
+          setGradesToSave([])
           break;
         }
       }
     }
 
     update();
-  }, [gradesToSave, closeFunction ]);
+  }, [gradesToSave, closeFunction, setGradesToSave ]);
 
 
 

@@ -14,7 +14,6 @@ import useTeacherData from "../hooks/useTeacherData.jsx"
 export const TeacherPanelContext = createContext();
 
 export function TeacherPanelContextProvider(props) {
-
   const academicYears = useAcademicYears()
   const lapseNames = useLapseNames()
   const periods = usePeriods()
@@ -31,31 +30,33 @@ export function TeacherPanelContextProvider(props) {
   const [activeEvalPlan, setActiveEvalPlan] = useState(0)
   const [gradesToSave, setGradesToSave] = useState([]);
   const [teacherData, setTeacherData] = useTeacherData();
-
+  const [studentPhotos, setStudntPhotos] = useState([])
   
 
+    function addGradesToSave(grade){
+    const newGrade = [...gradesToSave]
+    const exist = newGrade.filter(register => (register.idEvaluationPlan === grade.idEvaluationPlan && register.idStudent === grade.idStudent)).length > 0
 
-  function addGradesToSave(grade){
-
-    let previusGrade = gradesToSave
-    previusGrade.push(grade)
-    const mergedGrades = Object.values(previusGrade.reduce((acc, obj) => {
-      const key = obj.idStudent + '-' + obj.idEvaluationPlan;
-        if (acc[key]) {
-          acc[key] = { ...acc[key], ...obj };
-        } else {
-          acc[key] = { ...obj };
+    if(!exist){
+      newGrade.push(grade)
+    }else{
+      for(let register of newGrade){
+        if(register.idEvaluationPlan === grade.idEvaluationPlan && register.idStudent === grade.idStudent){
+          for(let i = 1 ; i <= 10 ; i++){
+            if(grade[`eval${i}`] !== undefined){
+              register[`eval${i}`] = grade[`eval${i}`]
+            }
+          }
+            
         }
-        return acc;
-    }, {}));
-
-    setGradesToSave(mergedGrades)
+      }
+    }
+    setGradesToSave(newGrade)
   }
-
 
  // console.log(activeSubject)
 
-  const values ={
+  const values = {
     academicYears,
     lapseNames,
     periods,
@@ -81,7 +82,9 @@ export function TeacherPanelContextProvider(props) {
     addGradesToSave,
     setGradesToSave,
     teacherData, 
-    setTeacherData
+    setTeacherData,
+    studentPhotos,
+    setStudntPhotos
   }
 
   return (
@@ -95,36 +98,3 @@ TeacherPanelContextProvider.propTypes = {
   children: PropTypes.node
 };
 
-
-  //objeto de prueba
-/*
-  const DTS = [
-    {
-      studentName: "Simion Bolivar",
-      idStudent: "d5a98e80-7f10-4a7b-8a07-1e6f6f8d4a02",
-      idEvaluationPlan: "2a7b1e2f-83bf-4d62-9eaa-8e1d5217e6a4",
-      eval1: "11",
-      eval2: "12",
-      eval3: "13",
-      eval4: "10"
-    },
-    {
-      studentName: "Luisa Caseres de Arismendi",
-      idStudent: "9fbd2d15-9d7c-4403-9cd7-7f1462baf4e3",
-      idEvaluationPlan: "2a7b1e2f-83bf-4d62-9eaa-8e1d5217e6a4",
-      eval1: "12",
-      eval2: "14",
-      eval3: "19",
-      eval4: "14"
-    },
-       {
-      studentName: "Amateratsu Lopes",
-      idStudent: "9fbd2d15-9d7c-4403-9cd7-7f1462baf4e3",
-      idEvaluationPlan: "9fbd2d15-9d7c-4403-9cd7-7f1462baf4e3",
-      eval1: "12",
-      eval2: "14",
-      eval3: "19",
-      eval4: "14"
-    }
-
-  ]*/

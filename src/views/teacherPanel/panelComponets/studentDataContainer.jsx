@@ -8,6 +8,7 @@ import { Button } from 'primereact/button';
 import NotFoundStudent from "./studentDataContainerComponents/notFoundStudent.jsx"
 import NotActiveStudent from "./studentDataContainerComponents/notActiveStudent.jsx"
 import EvalPlanContainer from "./evalPlan/evalPlanContainer.jsx"
+import Spiner from "../../../components/spiner/stpiner.jsx"
 
 export default function StudentDataContainer(){
 
@@ -37,6 +38,10 @@ export default function StudentDataContainer(){
 
   if(!activeSubject){
     return <StarterMenu />
+  }else if(studentList === 'loading'){
+    return <div className="TP-spiner-container">
+      <Spiner/>
+    </div> 
   }else if (studentList.length === 0){
     return <NotFoundStudent title = {title}/>
   }else if (activeStudent === null){

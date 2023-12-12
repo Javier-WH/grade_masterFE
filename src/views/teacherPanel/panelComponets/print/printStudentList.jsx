@@ -25,7 +25,7 @@ export default function PrintStudentList(){
 
 
   useEffect(()=>{
-    if(!studentList || !evalPlanList){
+    if(!studentList || !evalPlanList || studentList === 'loading'){
       setStdList([])
       return
     }

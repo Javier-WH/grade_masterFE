@@ -5,9 +5,10 @@ import { Button } from 'primereact/button';
 import useLogin from '../../hooks/useLogin.jsx';
 import {useNavigate} from 'react-router-dom';
 import { ToastContext } from '../../context/toastContext.jsx';
-//import { ConfirmDialogContext } from '../../context/confirmDialogoContext.jsx';
 import Logo from '../logo/logo.jsx';
+import { ProgressBar } from 'primereact/progressbar'
 import './login.css'
+
 
 export default function Login(){
 
@@ -17,10 +18,12 @@ export default function Login(){
   const [passValue, setPassValue] = useState("")
   const [userValue, setUserValue] = useState("")
   const [data, setData] = useLogin()
+  const [loading, setLoading]= useState(false)
 
 
 
   const handleLogin = async ()=>{
+    setLoading(true)
     setData({
       user: userValue,
       password: passValue
@@ -28,6 +31,7 @@ export default function Login(){
   }
 
  useEffect(() => {
+    
     const { error, id, Authorization } = data;
     if (error) {
       showToast({
@@ -40,11 +44,16 @@ export default function Login(){
       sessionStorage.setItem('id', id);
       navigate("/teacher");
     }
+    setLoading(false)
   }, [data, showToast, navigate]);
+  
 
   return (
     <>
-    <Logo/>
+      <Logo/>
+      <div id='login-progress-container'>
+        <ProgressBar mode='indeterminate' id='login-progress-bar' className={ loading ? '' : 'hideBar'}/>
+      </div>
       <div className='login-container'>
         <UserInput userValue= {userValue} setUserValue={setUserValue}/>
         <BasicPassword passValue ={passValue} setPassValue={setPassValue}/>

@@ -66,6 +66,7 @@
   right: 0;
   width: 15em;
 }
+.TP-spiner-container,
 #TP-notActiveStudent{
     grid-area: container;
     width: 30em;
@@ -78,6 +79,7 @@
   text-align: center;
   pointer-events: none;
 }
+
 #TP-main-container{
   min-height: 100vh;
   min-width: 100vw;

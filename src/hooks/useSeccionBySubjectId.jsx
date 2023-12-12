@@ -6,6 +6,8 @@ export default function useSeccionBySubjectId({id, idPeriod}) {
   const [response, setResponse] = useState([]);
 
   useEffect(() => {
+
+    setResponse('loading')
   
       if (!id || id.length === 0 || !idPeriod) {
         setResponse([]);

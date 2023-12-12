@@ -1,0 +1,9 @@
+#TP-studentImage{
+  width: 11em !important;
+  height: 12em !important;
+  border: 0.3em solid  var(--surface-50);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--surface-300);
+}

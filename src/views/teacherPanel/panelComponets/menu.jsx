@@ -14,6 +14,7 @@ import { useReactToPrint } from 'react-to-print';
 import PrintStudentList from './print/printStudentList.jsx';
 import PrintEmpyStudentList from './print/printEmptyStudentList.jsx';
 import PrintExcelFile from '../../../utils/printExcelFile/printExcelFile.js';
+import ShowSoftwareInfo from '../../../components/softwareInfo/info.jsx';
 import "./menu.css"
 
 export default function TeacherPanelMenu() {
@@ -23,6 +24,7 @@ export default function TeacherPanelMenu() {
     const [showSave, setShowSave] = useState(false)
     const [showEPC, setShowEPC] = useState(false)
     const [showEPE, setShowEPE] = useState(false) 
+    const [showSoftwareInfo, setShowSoftwareInfo] = useState(false)
     const [showTeacherData, setShowTeacherData] = useState(false)
     const [showTeacherPass, setShowTeacherPass] = useState(false)
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
@@ -71,7 +73,7 @@ export default function TeacherPanelMenu() {
         });
     };
 
-    const subjects = teacherSubjects.map(item =>{
+    const subjects = teacherSubjects === 'loading'? [] : teacherSubjects.map(item =>{
         const label = `${item.subjectName} ${item.academicYearName} ${item.seccionName}`
         return {
             label,
@@ -196,6 +198,7 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Acerca de...',
                     icon: 'pi pi-fw pi-info',
+                    command: ()=> setShowSoftwareInfo(true)
 
                 },
                 {
@@ -216,6 +219,7 @@ export default function TeacherPanelMenu() {
             <ShowEPE showEPE ={showEPE} setShowEPE ={setShowEPE}/>
             <ShowTeacherData showTeacherData = {showTeacherData} setShowTeacherData = {setShowTeacherData}/>
             <ShowTeacherPassword showTeacherPassword = {showTeacherPass} setShowTeacherPassword={setShowTeacherPass} />
+            <ShowSoftwareInfo showSoftwareInfo ={showSoftwareInfo} setShowSoftwareInfo={setShowSoftwareInfo} />
             <div className='Menu-print-hide'>
                 <div className='Menu-Print-nomina' ref={printRef}>
                     <PrintStudentList />
