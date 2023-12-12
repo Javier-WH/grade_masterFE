@@ -97,7 +97,7 @@ export default function PrintStudentList(){
   if(!stdList || stdList.length === 0){
     return <>
         <h1 className='Print-Students-seccion'>{activeSubject}</h1>
-        <h1 className='Print-Students-teacherName'>{`Profesor: ${teacherData.name} ${teacherData.lastName} C.I. ${teacherData.ci}`}</h1> 
+        <h1 className='Print-Students-teacherName'>{`Profesor: ${teacherData?.name} ${teacherData?.lastName} C.I. ${teacherData?.ci}`}</h1> 
         <h1 className='Print-Students-lapseName'>{lapseName}</h1>
         <h1 className='Print-Students-seccion'>No se encontró un plan de evaluación para esta materia</h1>
     </>
@@ -106,7 +106,7 @@ export default function PrintStudentList(){
 
   return <>
     <h1 className='Print-Students-seccion'>{activeSubject}</h1>
-    <h1 className='Print-Students-teacherName'>{`Profesor: ${teacherData.name} ${teacherData.lastName} C.I. ${teacherData.ci}`}</h1> 
+    <h1 className='Print-Students-teacherName'>{`Profesor: ${teacherData?.name} ${teacherData?.lastName} C.I. ${teacherData?.ci}`}</h1> 
     <h1 className='Print-Students-lapseName'>{lapseName}</h1>
     <div className='Print-Student-list Print-Student-list-headers'>
       <span>N°</span>

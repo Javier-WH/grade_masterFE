@@ -98,12 +98,14 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Secciones',
                     icon: 'pi pi-fw pi-book',
-                    items: subjects
+                    items: subjects,
+                    disabled: subjects.length > 0 ? false : true
                 },
                 {
-                  label: 'Plan de evaluación',
-                  icon: 'pi pi-fw pi-calendar',
-                      items: [
+                    label: 'Plan de evaluación',
+                    icon: 'pi pi-fw pi-calendar',
+                    disabled: subjects.length > 0 ? false : true,
+                    items: [
                         {
                             label: 'Agregar Plan',
                             icon: 'pi pi-fw pi-calendar-plus',
@@ -119,7 +121,8 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Guardar',
                     icon: 'pi pi-fw pi-save',
-                    command: ()=> setShowSave(true)
+                    command: ()=> setShowSave(true),
+                    disabled: subjects.length > 0 ? false : true,
                 },
                 {
                   separator: true
@@ -137,6 +140,7 @@ export default function TeacherPanelMenu() {
         {
             label: 'Reporte',
             icon: 'pi pi-fw pi-paperclip',
+            disabled: subjects.length > 0 ? false : true,
             items: [
                 {
                     label: 'Imprimir planilla',
@@ -163,6 +167,7 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Nomina',
                     icon: 'pi pi-fw pi-list',
+                    disabled: subjects.length > 0 ? false : true,
                     command: ()=> setShowList(true)
 
                 },

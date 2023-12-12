@@ -25,7 +25,7 @@ export default function useTeacherSubjects() {
         }
         setResponse(subjects);
       } catch (error) {
-        setResponse(null);
+        setResponse([]);
       }
     };
 

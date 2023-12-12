@@ -33,24 +33,24 @@ export function TeacherPanelContextProvider(props) {
   const [studentPhotos, setStudntPhotos] = useState([])
   
 
-    function addGradesToSave(grade){
-    const newGrade = [...gradesToSave]
-    const exist = newGrade.filter(register => (register.idEvaluationPlan === grade.idEvaluationPlan && register.idStudent === grade.idStudent)).length > 0
 
-    if(!exist){
-      newGrade.push(grade)
-    }else{
-      for(let register of newGrade){
-        if(register.idEvaluationPlan === grade.idEvaluationPlan && register.idStudent === grade.idStudent){
-          for(let i = 1 ; i <= 10 ; i++){
-            if(grade[`eval${i}`] !== undefined){
-              register[`eval${i}`] = grade[`eval${i}`]
-            }
+  function addGradesToSave(grade){
+  const newGrade = [...gradesToSave]
+  const exist = newGrade.filter(register => (register.idEvaluationPlan === grade.idEvaluationPlan && register.idStudent === grade.idStudent)).length > 0
+  if(!exist){
+    newGrade.push(grade)
+  }else{
+    for(let register of newGrade){
+      if(register.idEvaluationPlan === grade.idEvaluationPlan && register.idStudent === grade.idStudent){
+        for(let i = 1 ; i <= 10 ; i++){
+          if(grade[`eval${i}`] !== undefined){
+            register[`eval${i}`] = grade[`eval${i}`]
           }
-            
         }
+          
       }
     }
+  }
     setGradesToSave(newGrade)
   }
 

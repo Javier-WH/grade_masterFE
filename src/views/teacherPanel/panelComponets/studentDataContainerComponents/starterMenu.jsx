@@ -26,6 +26,14 @@ export default function StarterMenu() {
             <Spiner/>
         </div>
     }
+
+    if(teacherSubjects.length === 0){
+      return <div className="TP-container" id='TP-starterMenu'>
+                  <i className="pi pi-exclamation-triangle" style={{ fontSize: '4rem' }}></i>
+            <br />
+            <span> No se encontraron materias asignadas a este </span>
+        </div>
+    }
     
     return <>
       <div className="TP-container" id='TP-starterMenu'>
