@@ -54,6 +54,10 @@
   display: none;
 }
 
+.disabled{
+  pointer-events: none;
+}
+
 @media (width < 350px){
   #loginLogo{
     scale: 1;

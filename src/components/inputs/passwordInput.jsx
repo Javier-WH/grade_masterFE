@@ -1,7 +1,7 @@
 import { Password } from 'primereact/password';
 import PropTypes from "prop-types";
 
-export default function BasicPassword({passValue, setPassValue, label}) {
+export default function BasicPassword({passValue, setPassValue, label, loading}) {
     
 
 
@@ -15,7 +15,8 @@ export default function BasicPassword({passValue, setPassValue, label}) {
               onChange={(e) => setPassValue(e.target.value)} 
               feedback={false} 
               tabIndex={1} 
-              toggleMask 
+              toggleMask
+              disabled = {loading}
              />
             <label htmlFor="pass">{label ? label : "Contraseña"}</label>
          </span>
@@ -25,5 +26,6 @@ export default function BasicPassword({passValue, setPassValue, label}) {
 BasicPassword.propTypes = {
   passValue: PropTypes.string.isRequired,
   setPassValue: PropTypes.func.isRequired,
-  label: PropTypes.string
+  label: PropTypes.string,
+  loading: PropTypes.bool
 };

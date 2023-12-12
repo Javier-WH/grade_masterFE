@@ -55,9 +55,24 @@ export default function Login(){
         <ProgressBar mode='indeterminate' id='login-progress-bar' className={ loading ? '' : 'hideBar'}/>
       </div>
       <div className='login-container'>
-        <UserInput userValue= {userValue} setUserValue={setUserValue}/>
-        <BasicPassword passValue ={passValue} setPassValue={setPassValue}/>
-        <Button label= {loading ? 'Espere...' : 'Ingresar'} severity={loading ? 'secondary' : ''} icon={loading ? 'pi pi-spin pi-spinner' : 'pi pi-reply'} onClick={handleLogin}/>
+        <UserInput 
+          userValue= {userValue} 
+          setUserValue={setUserValue}
+          loading = {loading}
+          
+        />
+        <BasicPassword 
+          passValue ={passValue} 
+          setPassValue={setPassValue}
+          loading = {loading}
+        />
+        <Button 
+          label= {loading ? 'Espere...' : 'Ingresar'} 
+          severity={loading ? 'secondary' : ''} 
+          icon={loading ? 'pi pi-spin pi-spinner' : 'pi pi-reply'} 
+          className={loading ? 'disabled' : ''}
+          onClick={handleLogin
+        }/>
         <div id='passRecovery-container'>
           <span className ='passRecovery-text'>Olvidé mi contraseña</span>
           <span className ='passRecovery-text'>Registrarse</span>

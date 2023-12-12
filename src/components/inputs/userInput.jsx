@@ -1,7 +1,7 @@
 import { InputText } from "primereact/inputtext";
 import PropTypes from "prop-types";
 
-export default function UserInput({userValue, setUserValue}) {
+export default function UserInput({userValue, setUserValue, loading}) {
    
   return (
     <span className="p-float-label p-input-icon-left">
@@ -11,6 +11,7 @@ export default function UserInput({userValue, setUserValue}) {
           value={userValue} 
           onChange={(e) => setUserValue(e.target.value)} 
           style={{width: "100%"}}
+          disabled={loading}
          />
         <label htmlFor="username">Usuario</label>
     </span>
@@ -20,4 +21,5 @@ export default function UserInput({userValue, setUserValue}) {
 UserInput.propTypes = {
   userValue: PropTypes.string.isRequired,
   setUserValue: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 };
