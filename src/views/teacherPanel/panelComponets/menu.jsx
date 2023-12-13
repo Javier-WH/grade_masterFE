@@ -15,6 +15,7 @@ import PrintStudentList from './print/printStudentList.jsx';
 import PrintEmpyStudentList from './print/printEmptyStudentList.jsx';
 import PrintExcelFile from '../../../utils/printExcelFile/printExcelFile.js';
 import ShowSoftwareInfo from '../../../components/softwareInfo/info.jsx';
+import SearchStudent from './menuComponents/searchStudent/searchStudent.jsx';
 import "./menu.css"
 
 export default function TeacherPanelMenu() {
@@ -27,6 +28,7 @@ export default function TeacherPanelMenu() {
     const [showSoftwareInfo, setShowSoftwareInfo] = useState(false)
     const [showTeacherData, setShowTeacherData] = useState(false)
     const [showTeacherPass, setShowTeacherPass] = useState(false)
+    const [showSearchStudent, setShowSearchStudent] = useState(false)
     const {showConfirmDialog} = useContext(ConfirmDialogContext)
     const {showToast} = useContext(ToastContext)
 
@@ -174,6 +176,7 @@ export default function TeacherPanelMenu() {
                 {
                     label: 'Buscar estudiante',
                     icon: 'pi pi-fw pi-search',
+                    command: ()=> setShowSearchStudent(true)
 
                 }
             ]
@@ -225,6 +228,7 @@ export default function TeacherPanelMenu() {
             <ShowTeacherData showTeacherData = {showTeacherData} setShowTeacherData = {setShowTeacherData}/>
             <ShowTeacherPassword showTeacherPassword = {showTeacherPass} setShowTeacherPassword={setShowTeacherPass} />
             <ShowSoftwareInfo showSoftwareInfo ={showSoftwareInfo} setShowSoftwareInfo={setShowSoftwareInfo} />
+            <SearchStudent showSearchStudent = {showSearchStudent} setShowSearchStudent ={setShowSearchStudent} />
             <div className='Menu-print-hide'>
                 <div className='Menu-Print-nomina' ref={printRef}>
                     <PrintStudentList />

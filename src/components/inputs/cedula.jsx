@@ -1,22 +1,17 @@
-import { useEffect, useState } from "react";
 import { InputNumber } from 'primereact/inputnumber';
 import PropTypes from "prop-types";
 
-export default function Cedula({ studentCi }) {
-
-    const [value2, setValue2] = useState("");
-
-    useEffect(()=>{
-        if(studentCi){
-            setValue2(studentCi)
-        }
-    },[studentCi])
-
-
-    return <InputNumber inputId="input-ci" className="TP-ci" value={value2} onValueChange={(e) => setValue2(e.value)}  locale="de-DE" />
-    
+export default function Cedula({ value, setValue, label, klass, id }) {
+      return <span className={`p-float-label ${klass}`} style={{width: '100%'}}>
+        <InputNumber id={id}  inputId="input-ci" className="TP-ci" value={value} onValueChange={(e) => setValue(e.value)}  locale="de-DE" /> 
+        <label htmlFor={id}>{label ? label : "Cedula"}</label>
+      </span>
 }
 
 Cedula.propTypes = {
-  studentCi: PropTypes.string
+  value: PropTypes.number,
+  setValue: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  klass: PropTypes.string,
+  id: PropTypes.string.isRequired,
 };
