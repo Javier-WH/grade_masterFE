@@ -7,6 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import { ToastContext } from '../../context/toastContext.jsx';
 import Logo from '../logo/logo.jsx';
 import { ProgressBar } from 'primereact/progressbar'
+import { useEventListener } from 'primereact/hooks';
 import './login.css'
 
 
@@ -21,7 +22,6 @@ export default function Login(){
   const [loading, setLoading]= useState(false)
 
 
-
   const handleLogin = async ()=>{
     setLoading(true)
     setData({
@@ -29,6 +29,22 @@ export default function Login(){
       password: passValue
     })
   }
+
+  const [bindKeyUp, unbindKeyUp] = useEventListener({
+      type: 'keyup',
+      listener: (e) => {
+        if(e.code === 'Enter'){
+          handleLogin()
+        }
+      }
+  });
+    
+  useEffect(() => {
+    bindKeyUp();
+    return () => {   
+        unbindKeyUp();
+    };
+  }, [bindKeyUp, unbindKeyUp]);
 
  useEffect(() => {
     
