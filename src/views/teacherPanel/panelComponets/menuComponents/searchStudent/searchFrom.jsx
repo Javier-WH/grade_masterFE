@@ -1,18 +1,32 @@
 import PropTypes from "prop-types"
 import Cedula from "../../../../../components/inputs/cedula.jsx";
 import TextInput from "../../../../../components/inputs/textInput.jsx";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import fetchAStudent from "../../../../../fetch/fetchAStudent.js";
 import { Button } from 'primereact/button';
+import { ToastContext } from '../../../../../context/toastContext.jsx';
 
 export default function SearchFrom({setStudent}){
   const [ciValue, setCiValue] = useState()
   const [nameValue, setNameValue] = useState("")
   const [lastNameValue, setLastNameValue] = useState("")
   const [loading, setLoading] = useState(false)
+  const {showToast} = useContext(ToastContext)
 
 
   const handleSearch = () =>{
+      
+    if(!ciValue &&
+      (!nameValue || nameValue.length === 0) &&
+      (!lastNameValue || lastNameValue.length === 0) ){
+       showToast({
+          severity: 'info',
+          summary: 'Advertencia',
+          detail: 'Al menos debe llenar un campo'
+        });
+        return
+    }
+
     let page = 1
     async function search(){
       setLoading(true)
@@ -31,7 +45,16 @@ export default function SearchFrom({setStudent}){
         const {studentsFounds} = studentData2
         students = [...students, ...studentsFounds]
       }
-      setStudent(students)
+      
+      if(!students){
+        showToast({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No existe ningun alumno que cumpla alguno de los criterios solicitados'
+        });
+      }else{
+        setStudent(students)
+      }
       setLoading(false)
     }
     search()
