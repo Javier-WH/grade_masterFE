@@ -6,7 +6,7 @@ import getStudentImage from '../../fetch/fetchStudentImage.js';
 import Spiner from '../spiner/stpiner.jsx';
 import './studentImage.css'
 
-export default function StudentImage() {
+export default function StudentImage({forcedStudent}) {
 
   const {studentList, activeStudent, studentPhotos, setStudntPhotos} = useContext(TeacherPanelContext)
   const [imageUrl, setImageUrl] = useState(null);
@@ -14,7 +14,7 @@ export default function StudentImage() {
 
   useEffect(()=>{
     setImageUrl(null)
-    const student = studentList[activeStudent]
+    const student = forcedStudent ? forcedStudent : studentList[activeStudent]
     if(!student){
       return
     }
@@ -74,6 +74,6 @@ export default function StudentImage() {
 }
 
 StudentImage.propTypes = {
-  image: PropTypes.any
+  forcedStudent: PropTypes.object
 };
 

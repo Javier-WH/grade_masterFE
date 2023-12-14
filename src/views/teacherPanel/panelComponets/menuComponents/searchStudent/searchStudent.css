@@ -1,0 +1,28 @@
+.SS-student-data-container{
+  display: flex;
+  flex-direction: column;
+  background: var(--surface-50);
+  margin: 0.2em;
+  padding: 0.5em;
+  border-radius: 5px;
+}
+
+.SS-student-data-container label{
+  font-size: 0.8em;
+  color: var(--text-color-secondary);
+}
+
+.SS-student-data-container span{
+  font-size: 1.1em;
+}
+.SS-student-data-title{
+  color: var(--text-color-secondary);
+}
+#SS-studentimage-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hide{
+  display: none;
+}
