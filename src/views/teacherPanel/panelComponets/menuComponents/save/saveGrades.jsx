@@ -14,8 +14,6 @@ export default function SaveGrades({closeFunction}){
   const {showToast} = useContext(ToastContext)
 
 
-  
-
   useEffect(()=>{
 
     if(error === 'error'){
@@ -37,7 +35,6 @@ export default function SaveGrades({closeFunction}){
         detail : "No hay cambios que guardar"
       });
     } 
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[error])
 
@@ -59,6 +56,7 @@ export default function SaveGrades({closeFunction}){
         if (updated) {
           index++;
           setProgress(progress + progressChunk);
+          setError('success')
         } else {
           setError('error')
           setGradesToSave([])
@@ -67,7 +65,6 @@ export default function SaveGrades({closeFunction}){
       }
       setProgress(100)
       setGradesToSave([])
-      setError('success')
       closeFunction()
     }
 
