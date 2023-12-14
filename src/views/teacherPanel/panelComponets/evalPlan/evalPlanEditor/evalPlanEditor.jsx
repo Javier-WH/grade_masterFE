@@ -19,6 +19,7 @@ export default function EvalPlanEditor({closeFunction}){
   const [idSubject, setIdSubject] = useState(null)
   const [evaluationList, setEvalEuationList] = useState([])
   const {showToast} = useContext(ToastContext)
+  const [loading, setLoading] = useState(false)
   
   const removeEval = index=>{
     const list = [...evaluationList]
@@ -166,7 +167,7 @@ export default function EvalPlanEditor({closeFunction}){
     }
 
     //console.log(newLocalPlan)
-    console.log(evalPlanData)
+    setLoading(true)
      InsertEvalPlan(evalPlanData).then(idEvaluationPlan =>{
         if(idEvaluationPlan){
             const newLocalPlan = {
@@ -210,6 +211,7 @@ export default function EvalPlanEditor({closeFunction}){
           );
 
         }
+        setLoading(false)
      })
   
  }
@@ -252,7 +254,7 @@ export default function EvalPlanEditor({closeFunction}){
       }
      
       <div id="EPE-updateButton-container">
-        <Button label="Actualizar" onClick={handleUpdate}/>
+        <Button label={loading ? 'Espere...' : 'Actualizar'} onClick={handleUpdate}/>
       </div>
     </div>
   </>

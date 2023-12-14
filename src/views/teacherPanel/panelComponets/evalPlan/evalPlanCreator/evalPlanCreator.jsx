@@ -19,6 +19,7 @@ export default function EvalPlanCreator({closeFunction}){
   const [idLapse, setIdLapse] = useState(null)
   const [evaluationList, setEvalEuationList] = useState([])
   const {showToast} = useContext(ToastContext)
+  const [loading, setLoading] = useState(false)
 
 
   const addEval = ()=>{
@@ -123,11 +124,10 @@ export default function EvalPlanCreator({closeFunction}){
     desc
   }
   
-
-  
   //console.log(newLocalPlan)
-
+    setLoading(true)
    InsertEvalPlan(evalPlanData).then(idEvaluationPlan =>{
+    
       if(idEvaluationPlan){
           const newLocalPlan = {
             idEvaluationPlan,
@@ -135,7 +135,6 @@ export default function EvalPlanCreator({closeFunction}){
             idSubject: subjectId
           }
 
-      
           for(let i = 1 ; i <= Object.keys(dates).length ; i++ ){
               newLocalPlan[`date${i}`] = dates[`eval${i}`]
               newLocalPlan[`desc${i}`] = desc[`eval${i}`]
@@ -150,7 +149,7 @@ export default function EvalPlanCreator({closeFunction}){
             setEvalPlanList(list)
             closeFunction();
           }
-      
+        
       }else{
         showToast(
           {
@@ -161,6 +160,7 @@ export default function EvalPlanCreator({closeFunction}){
         );
 
       }
+      setLoading(false)
    })
   
  }
@@ -189,8 +189,8 @@ export default function EvalPlanCreator({closeFunction}){
       }
       <Button icon="pi pi-plus" rounded severity="success" aria-label="Search" label="Agregar Evaluación" onClick={addEval}/>
       <div id="EPC-button-container">
-        <Button label="Cancelar" severity="secondary" rounded onClick={closeFunction} />
-        <Button label="Crear" rounded onClick={handleInsert}/>
+        <Button label="Cerrar" severity="secondary" rounded onClick={closeFunction} />
+        <Button label={loading ? 'Espere...':'Crear'} rounded onClick={handleInsert}/>
       </div>
     </div>
   </>
