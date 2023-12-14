@@ -18,13 +18,7 @@ export default function SaveGrades({closeFunction}){
 
   useEffect(()=>{
 
-    if(gradesToSave.length == 0){
-      showToast({
-        severity : 'info',
-        summary : 'Mensaje',
-        detail : "No hay cambios que guardar"
-      });
-    }else if(error === 'error'){
+    if(error === 'error'){
       showToast({
         severity : 'error',
         summary : 'Error',
@@ -36,9 +30,14 @@ export default function SaveGrades({closeFunction}){
         summary : 'Exito',
         detail : 'las notas fueron guardadas correctament'
       });
-  
-    }
-    closeFunction()
+    } else if(gradesToSave.length == 0){
+      showToast({
+        severity : 'info',
+        summary : 'Mensaje',
+        detail : "No hay cambios que guardar"
+      });
+    } 
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[error])
 
@@ -50,6 +49,7 @@ export default function SaveGrades({closeFunction}){
     }
     async function update() {
       const numberUpdates = gradesToSave.length;
+      const progressChunk = 100 / numberUpdates
       let index = 0;
       while (index < numberUpdates) {
         const grade = gradesToSave[index];
@@ -58,20 +58,21 @@ export default function SaveGrades({closeFunction}){
   
         if (updated) {
           index++;
-          const currentProgress = ((index + 1) / numberUpdates) * 100;
-          const clampedProgress = currentProgress > 100 ? 100 : currentProgress;
-          setProgress(clampedProgress);
-          setError('success')
-          setGradesToSave([])
+          setProgress(progress + progressChunk);
         } else {
           setError('error')
           setGradesToSave([])
           break;
         }
       }
+      setProgress(100)
+      setGradesToSave([])
+      setError('success')
+      closeFunction()
     }
 
     update();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gradesToSave, closeFunction, setGradesToSave ]);
 
 
