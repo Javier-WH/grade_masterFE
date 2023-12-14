@@ -37,7 +37,7 @@ export default function SearchFrom({setStudent}){
     search()
   }
 
-  return <>
+  return <div id='SS-search-from-container'>
     <Cedula value={ciValue} setValue={setCiValue} id="SE-ci-input" klass = "SE-input"/>
     <TextInput label = "Nombre del Estudiante" id="SE-name-input" setText = {setNameValue} text = {nameValue} klass = "SE-input"/>
     <TextInput label = "Apellido del Estudiante" id="SE-lastName-input" setText = {setLastNameValue} text = {lastNameValue} klass = "SE-input"/>
@@ -49,7 +49,7 @@ export default function SearchFrom({setStudent}){
       onClick={handleSearch}
     />
    
-  </>
+  </div>
 
 }
 

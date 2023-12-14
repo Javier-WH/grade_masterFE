@@ -26,3 +26,33 @@
 .hide{
   display: none;
 }
+#SS-search-from-container{
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  margin-top: 2em;
+  max-width: 50em;
+  margin-left: auto;
+  margin-right: auto;
+}
+.SS-search-from-list{
+  display: grid;
+  grid-template-columns: 5fr 5fr 2fr 2fr 2fr;
+  cursor: pointer;
+}
+.SS-search-from-list span{
+  border: 1px solid var(--surface-400);
+  padding: 0.2em;
+  box-sizing: border-box;
+}
+.SS-search-from-list h5{
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0;
+  color: var(--text-color-secondary);
+  pointer-events: none !important;
+}
+
+.SS-search-from-list:hover{
+  color: var(--primary-color);
+}

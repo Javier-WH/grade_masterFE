@@ -10,12 +10,21 @@ export default function StudentDataPanel ({student}){
 
   if(student.length > 1 && selectedStudent === null){
     return <>
+      <div className="SS-search-from-list">
+          <h5>Nombre</h5>
+          <h5>Apellido</h5>
+          <h5>Cédula</h5>  
+          <h5>Grado</h5>  
+          <h5>Sección</h5>  
+      </div>
       {
         student.map((std, i)=>{
-          return <div key={`studentf${i}`} onClick={()=>setSelectedStudent(i)}>
+          return <div key={`studentf${i}`} onClick={()=>setSelectedStudent(i)} className="SS-search-from-list">
             <span>{std.studentName}</span>
             <span>{std.studentLastname}</span>
             <span>{std.studentCi}</span>  
+            <span>{std.academicYear}</span>  
+            <span>{std.seccionName}</span>  
           </div>
         })
       }
