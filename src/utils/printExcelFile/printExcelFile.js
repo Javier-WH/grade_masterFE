@@ -21,7 +21,8 @@ export default function printExcelFile({ studentList, evalPlanList, activeEvalPl
       grades
     } = student
 
-    const getLapseName = grades.filter(lapse => lapse.lapseid === lapseid)[0]?.lapseName
+
+    const getLapseName = grades?.filter(lapse => lapse.lapseid === lapseid)[0]?.lapseName
     lapseName = getLapseName ? getLapseName : lapseName
     
     const data = evalPlanList[activeEvalPlan]
