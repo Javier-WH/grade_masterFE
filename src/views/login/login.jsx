@@ -1,13 +1,13 @@
 import {useContext, useEffect, useState } from 'react'
 import UserInput from '../../components/inputs/userInput.jsx'
 import BasicPassword from '../../components/inputs/passwordInput.jsx'
-import { Button } from 'primereact/button';
-import useLogin from '../../hooks/useLogin.jsx';
+import LoginButton from './loginComponents/splitutton.jsx';
 import {useNavigate} from 'react-router-dom';
 import { ToastContext } from '../../context/toastContext.jsx';
 import Logo from '../logo/logo.jsx';
 import { ProgressBar } from 'primereact/progressbar'
 import { useEventListener } from 'primereact/hooks';
+import loginTeacher from './functions/loginTeacher.js';
 import './login.css'
 
 
@@ -18,18 +18,9 @@ export default function Login(){
   const {showToast} = useContext(ToastContext)
   const [passValue, setPassValue] = useState("")
   const [userValue, setUserValue] = useState("")
-  const [data, setData] = useLogin()
   const [loading, setLoading]= useState(false)
 
-
-  const handleLogin = async ()=>{
-    setLoading(true)
-    setData({
-      user: userValue,
-      password: passValue
-    })
-  }
-
+  //cuando se pisa la tecla enter, intenta hacer login
   const [bindKeyUp, unbindKeyUp] = useEventListener({
       type: 'keyup',
       listener: (e) => {
@@ -37,8 +28,7 @@ export default function Login(){
           handleLogin()
         }
       }
-  });
-    
+  }); 
   useEffect(() => {
     bindKeyUp();
     return () => {   
@@ -46,23 +36,40 @@ export default function Login(){
     };
   }, [bindKeyUp, unbindKeyUp]);
 
- useEffect(() => {
-    
-    const { error, id, Authorization } = data;
-    if (error) {
+
+  const handleLogin = async ()=>{
+    if(userValue.length === 0 ){
       showToast({
-        severity: 'error',
-        summary: 'Error',
-        detail: error
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: "Debe suministrar un nombre de usuario"
       });
-    } else if (id && Authorization) {
+      return
+    }
+    if(passValue.length === 0 ){
+      showToast({
+        severity: 'warn',
+        summary: 'Advertencia',
+        detail: "Debe suministrar una contraseña"
+      });
+      return
+    }
+    setLoading(true)
+    loginTeacher(userValue, passValue)
+    .then(({ id, Authorization }) =>{
+      setLoading(false)
       sessionStorage.setItem('Authorization', Authorization);
       sessionStorage.setItem('id', id);
       navigate("/teacher");
-    }
-    setLoading(false)
-  }, [data, showToast, navigate]);
-  
+    }).catch(error => {
+      setLoading(false)
+      showToast({
+        severity: 'error',
+        summary: 'Error',
+        detail: error.message
+      });
+    })
+  }
 
   return (
     <>
@@ -82,13 +89,12 @@ export default function Login(){
           setPassValue={setPassValue}
           loading = {loading}
         />
-        <Button 
-          label= {loading ? 'Espere...' : 'Ingresar'} 
-          severity={loading ? 'secondary' : ''} 
-          icon={loading ? 'pi pi-spin pi-spinner' : 'pi pi-reply'} 
-          className={loading ? 'disabled' : ''}
-          onClick={handleLogin
-        }/>
+        <LoginButton
+          loading = {loading}
+          setLoading = {setLoading}
+          action = {handleLogin}
+        />
+
         <div id='passRecovery-container'>
           <span className ='passRecovery-text'>Olvidé mi contraseña</span>
           <span className ='passRecovery-text'>Registrarse</span>

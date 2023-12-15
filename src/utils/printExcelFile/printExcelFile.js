@@ -37,20 +37,18 @@ export default function printExcelFile({ studentList, evalPlanList, activeEvalPl
 
 
     const gradelist = []
-    //el if previene un bug cuando un alumno tiene grades = undefined
-    if (grades) {
-      const evals = grades.filter(lapse => lapse.lapseid === lapseid)[0]?.evals
-
-      if (evals) {
-        for (let i = 1; i <= per.length; i++) {
-          gradelist.push(evals['eval' + i] ? Number.parseFloat(evals['eval' + i]) : 0)
-        }
-      } else { // esto agrega celdas vacías si no tiene notas
-        for (let i = 1; i <= per.length; i++) {
-          gradelist.push(0)
-        }
+    const evals = grades?.filter(lapse => lapse.lapseid === lapseid)[0]?.evals
+    
+    if (evals) {
+      for (let i = 1; i <= per.length; i++) {
+        gradelist.push(evals['eval' + i] ? Number.parseFloat(evals['eval' + i]) : 0)
+      }
+    } else { // esto agrega celdas vacías si no tiene notas
+      for (let i = 1; i <= per.length; i++) {
+        gradelist.push(null)
       }
     }
+    
 
     return {
       ci,

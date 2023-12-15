@@ -13,16 +13,16 @@ export default function generateExelFile({ printArray, activeSubject }) {
     { wch: 12 },
     { wch: 30 },
     { wch: 30 },
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }, 
-    { wch: gradeWidth }
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }, 
+    { wch: gradeWidth, z: "0.00" }
   ]; 
 
   // Agrega la hoja de cálculo al libro
