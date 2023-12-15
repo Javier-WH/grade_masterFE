@@ -2,16 +2,62 @@ import PropTypes from "prop-types";
 import { SplitButton } from 'primereact/splitbutton';
 import loginTutor from '../functions/loginTutor.js';
 import loginAdmin from '../functions/loginAdmin.js'
+import loginTeacher from "../functions/loginTeacher.js";
+import { ToastContext } from '../../../context/toastContext.jsx';
+import { useContext } from "react";
+import {useNavigate} from 'react-router-dom';
 
+export default function LoginButton ({loading, setLoading, action, userValue, passValue}) {
 
-export default function LoginButton ({loading, setLoading, action}) {
+    const {showToast} = useContext(ToastContext)
+    const navigate = useNavigate()
 
     const items = [
         {
             label: 'Ingresar como Administrador',
             icon: 'pi pi-star',
             command: () => {
-                loginAdmin()
+                if(userValue.length === 0 ){
+                      showToast({
+                        severity: 'warn',
+                        summary: 'Advertencia',
+                        detail: "Debe suministrar un nombre de usuario"
+                      });
+                      return
+                    }
+                    if(passValue.length === 0 ){
+                      showToast({
+                        severity: 'warn',
+                        summary: 'Advertencia',
+                        detail: "Debe suministrar una contraseña"
+                      });
+                      return
+                    }
+                    setLoading(true)
+                    loginTeacher(userValue, passValue)
+                    .then(({ id, Authorization }) =>{
+                      setLoading(false)
+                      sessionStorage.setItem('Authorization', Authorization);
+                      sessionStorage.setItem('id', id);
+
+                      loginAdmin(id).then(()=>{
+                         navigate("/teacher");
+                      }).catch(error => {
+                      setLoading(false)
+                      showToast({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: error.message
+                      });
+                    })
+                    }).catch(error => {
+                      setLoading(false)
+                      showToast({
+                        severity: 'error',
+                        summary: 'Error',
+                        detail: error.message
+                      });
+                    })
             }
         },
         {
@@ -41,5 +87,7 @@ export default function LoginButton ({loading, setLoading, action}) {
 LoginButton.propTypes = {
   loading: PropTypes.bool.isRequired,
   setLoading: PropTypes.func.isRequired,
-  action: PropTypes.func.isRequired
+  action: PropTypes.func.isRequired,
+  userValue: PropTypes.string.isRequired, 
+  passValue: PropTypes.string.isRequired
 };

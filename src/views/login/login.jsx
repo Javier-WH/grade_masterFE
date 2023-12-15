@@ -93,6 +93,8 @@ export default function Login(){
           loading = {loading}
           setLoading = {setLoading}
           action = {handleLogin}
+          userValue = {userValue}
+          passValue ={passValue} 
         />
 
         <div id='passRecovery-container'>
