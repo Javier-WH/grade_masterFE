@@ -39,9 +39,9 @@ export default function LoginButton ({loading, setLoading, action, userValue, pa
                       setLoading(false)
                       sessionStorage.setItem('Authorization', Authorization);
                       sessionStorage.setItem('id', id);
-
+                      sessionStorage.setItem('admin', true);
                       loginAdmin(id).then(()=>{
-                         navigate("/teacher");
+                         navigate("/admin");
                       }).catch(error => {
                       setLoading(false)
                       showToast({

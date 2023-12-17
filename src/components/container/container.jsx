@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import './container.css'
 export default function Container({title, children}){
   return (
-    <section className="Container TP-container">
+    <section className="Container TP-container config-container">
       {title !== undefined ? <h3 className="Container-title">{title}</h3> : null}
       {children}
     </section>

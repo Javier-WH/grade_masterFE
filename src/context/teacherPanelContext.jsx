@@ -1,4 +1,4 @@
-import { createContext, useState} from "react"
+import { createContext, useEffect, useState} from "react"
 import PropTypes from "prop-types"
 import useAcademicYears from "../hooks/useAcademicYears.jsx"
 import useLapseNames from "../hooks/useLapseNames.jsx"
@@ -10,6 +10,7 @@ import useEvalPlan from "../hooks/useEvalPlan.jsx"
 import useTeacherSubjects from "../hooks/useTeacherSubjects.jsx"
 import useSeccionBySubjectId from "../hooks/useSeccionBySubjectId.jsx"
 import useTeacherData from "../hooks/useTeacherData.jsx"
+import useConfig from "../hooks/useConfig.jsx"
 
 export const TeacherPanelContext = createContext();
 
@@ -22,7 +23,8 @@ export function TeacherPanelContextProvider(props) {
   const seccions = useSeccions()
   const teacherSubjects = useTeacherSubjects()
   const [subjectId, setSubjectId] = useState()
-  const [periodId, setPeriod] = useState("4a9f6e8c-2b51-4d9a-ae1c-3d7f0a6c8b9e")
+  const [config, setConfig] = useConfig()
+  const [periodId, setPeriod] = useState(null)
   const [studentList, setStudentList] = useSeccionBySubjectId({id: subjectId, idPeriod:periodId})
   const [activeSubject, setActiveSubject] = useState()
   const [activeStudent, setActiveStudent] = useState(null)
@@ -32,6 +34,17 @@ export function TeacherPanelContextProvider(props) {
   const [teacherData, setTeacherData] = useTeacherData();
   const [studentPhotos, setStudntPhotos] = useState([])
   
+  console.log(periodId)
+  //actualiza el periodo
+  useEffect(()=>{
+    if(!config){
+      return
+    }
+    const ap = config?.find(register=> register?.name === 'Active Period')?.value
+    setPeriod(ap)
+
+  },[config])
+
 
 
   function addGradesToSave(grade){
@@ -54,7 +67,7 @@ export function TeacherPanelContextProvider(props) {
     setGradesToSave(newGrade)
   }
 
- // console.log(gradesToSave)
+
 
   const values = {
     academicYears,
@@ -84,7 +97,9 @@ export function TeacherPanelContextProvider(props) {
     teacherData, 
     setTeacherData,
     studentPhotos,
-    setStudntPhotos
+    setStudntPhotos,
+    config, 
+    setConfig
   }
 
   return (
