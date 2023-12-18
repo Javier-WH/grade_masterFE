@@ -134,7 +134,7 @@ export default function TeacherPanelMenu() {
                     icon: 'pi pi-fw pi-power-off',
                     command: ()=>{
                        sessionStorage.clear();
-                    navigate("/");
+                       navigate("/");
                     }
                 }
             ]

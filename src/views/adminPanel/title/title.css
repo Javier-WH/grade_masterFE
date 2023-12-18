@@ -1,0 +1,11 @@
+.AP-title-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 2em;
+  margin-right: 2em;
+}
+.AP-title-container span{
+  color: var(--surface-600);
+  text-align: center;
+}

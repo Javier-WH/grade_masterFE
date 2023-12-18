@@ -2,10 +2,12 @@ import './adminPanel.css'
 import { TabView, TabPanel } from 'primereact/tabview';
 import ConfigTab from './configTab/configTab.jsx';
 import { AdminPanelContextProvider } from '../../context/adminPanelContext.jsx';
+import Title from './title/title.jsx';
 
 export default function AdminPanel() {
     return (
         <AdminPanelContextProvider>
+          <Title/>
             <div className="card" id='AP-tab-Container'>
                 <TabView scrollable>
                     <TabPanel header="Configuración" leftIcon="pi pi-cog">

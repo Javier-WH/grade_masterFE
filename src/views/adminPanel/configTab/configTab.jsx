@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { AdminPanelContext } from "../../../context/adminPanelContext.jsx" 
+import { Button } from 'primereact/button';
 import Container from "../../../components/container/container.jsx"
 import PeriodDropBox from "./periodDropBox.jsx"
 import TextInput from "../../../components/inputs/textInput.jsx"
@@ -28,25 +29,29 @@ export default function ConfigTab(){
   }, [config, periods])
 
 
-  return <div className="config-data-tab-container">
-    <Container title = "Período Activo">
-      <PeriodDropBox 
-        activePeriod = {activePeriod} 
-        setActivePeriod = {setActivePeriod} 
-        periods= {periods} 
-        loading = {loading}
-      />
-    </Container>
-    <Container title = "Datos de la institución">
-      <TextInput 
-        label = "Nombre de la institución" 
-        id = 'config-institution-namer' 
-        setText ={setInstitutionName} 
-        text ={institutionName ? institutionName : 'Esperando...' } 
-        klass = "config-input-institutionData" 
-        loading = {loading}
-      />
-    </Container>
-
-  </div>
+  return <div className="config-data-tab-maincontainer">
+      <div className="config-data-tab-container">
+        <Container title = "Período Activo">
+          <PeriodDropBox 
+            activePeriod = {activePeriod} 
+            setActivePeriod = {setActivePeriod} 
+            periods= {periods} 
+            loading = {loading}
+            />
+        </Container>
+        <Container title = "Datos de la institución">
+          <TextInput 
+            label = "Nombre de la institución" 
+            id = 'config-institution-namer' 
+            setText ={setInstitutionName} 
+            text ={institutionName ? institutionName : 'Esperando...' } 
+            klass = "config-input-institutionData" 
+            loading = {loading}
+            />
+        </Container>
+      </div>
+      <div className="config-data-btn-container" >
+        <Button label="Aceptar" icon="pi pi-check"  className="config-data-btn"/>
+      </div>
+  </div> 
 }

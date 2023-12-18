@@ -1,3 +1,6 @@
+.config-data-tab-maincontainer{
+  width: 100%
+}
 .config-data-tab-container{
   padding: 2em;
   display: flex;
@@ -10,6 +13,16 @@
 }
 .config-container{
   padding: 2em;
-  min-width: 25em;
+  width: 25em;
+  width: min-max(50px, 100px);
 }
-
+.config-data-btn{
+  width: 25em;
+  width: min-max(50px, 100px);
+}
+.config-data-btn-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5em;
+}
