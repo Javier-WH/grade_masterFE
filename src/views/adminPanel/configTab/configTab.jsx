@@ -4,12 +4,16 @@ import { Button } from 'primereact/button';
 import Container from "../../../components/container/container.jsx"
 import PeriodDropBox from "./periodDropBox.jsx"
 import TextInput from "../../../components/inputs/textInput.jsx"
+import fetchSaveConfig from "./fetchSaveConfig.js";
+import getConfig from "../../../fetch/fetchConfig.js";
+import { ToastContext } from '../../../context/toastContext.jsx';
 import './configTab.css'
 
 export default function ConfigTab(){
 
+  const {showToast} = useContext(ToastContext)
   const [loading, setLoading] = useState(true)
-  const { config, periods } = useContext(AdminPanelContext)
+  const { config, setConfig, periods } = useContext(AdminPanelContext)
   const [activePeriod, setActivePeriod] = useState(null)
   const [institutionName, setInstitutionName] = useState('')
 
@@ -27,6 +31,47 @@ export default function ConfigTab(){
     setLoading(false)
      // eslint-disable-next-line
   }, [config, periods])
+
+  const handleSave = ()=>{
+     setLoading(true)
+    const insertionArray = []
+    //periodo actuvo
+    insertionArray.push(
+      {
+        name: 'Active Period',
+        value: activePeriod.code
+      }
+    )
+    //nombre de la institución
+    insertionArray.push(
+      {
+        name: 'School Name',
+        value: institutionName
+      }
+    )
+      
+    fetchSaveConfig(insertionArray)
+    .then( async message => {
+        setConfig(await getConfig())
+        setLoading(false)
+        showToast({
+            severity : 'success',
+            summary : 'Exito',
+            detail : message
+        });
+      })
+    .catch(error => {
+      alert(error.message)
+      setLoading(false)
+       showToast({
+          severity : 'error',
+          summary : 'Error',
+          detail : error.message
+      });
+    })
+
+
+  }
 
 
   return <div className="config-data-tab-maincontainer">
@@ -51,7 +96,7 @@ export default function ConfigTab(){
         </Container>
       </div>
       <div className="config-data-btn-container" >
-        <Button label="Aceptar" icon="pi pi-check"  className="config-data-btn"/>
+        <Button label="Aceptar" icon="pi pi-check"  className="config-data-btn" onClick={handleSave}/>
       </div>
   </div> 
 }
